@@ -1,6 +1,6 @@
-<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5">**The Team**</font><hr /><p> 
+<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>The Team</b></font><hr /><p> 
 
-<br><b>Franco Baudino</b>
+<br><h3>Franco Baudino</h3>
 
 <br>Grade : 12
 
