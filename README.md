@@ -2,7 +2,7 @@
 
 <br><h3>Franco Baudino</h3>
 
-<br>Grade : 12
+Grade : 12
 
 <br>Intended Major: Computer Eng or Biomedical Eng
 
