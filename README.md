@@ -1,11 +1,4 @@
-<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>The Team</b></font><hr /><p> 
-
-<br><h3>Franco Baudino</h3>
-
-Grade : 12
-
-<br>Intended Major: Computer Eng or Biomedical Eng
-
+<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>The Team</b></font><hr /><p><br><h3>Franco Baudino</h3><br>Grade : 12<br>Intended Major: Computer Eng or Biomedical Eng
 <br>First Experience Programming: Using Arduinos for school and personal projects.
 
 
