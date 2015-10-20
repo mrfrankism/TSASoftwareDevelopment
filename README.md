@@ -46,6 +46,7 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|10/20/2015|Made a new class to hold the different courses|4Hrs|Hannah, Franco|Had one million and one errors to solve, really difficult|
 |10/17/2015| Set up github Readme File| 3Hrs| Franco Baudino| Used Github's markdown language|
 |10/15/2015|Communicated with Mysql server and populated it| 3.5Hrs|Hannah, Franco|Got a bug authenticating with the server, the username was typed wrong|
 |10/13/2015|Started a java class that would populate a Mysql server with fake data so that we can start testing code|3.5Hrs|Hannah, Franco|No comments|
