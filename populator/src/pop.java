@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 //import com.mysql.*;
 //import com.mysql.jdbc.PreparedStatement;
 public class pop {
+    public static int coursePerSub= 5;
 	static Connection conn;
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
@@ -24,6 +25,7 @@ public class pop {
 		String [] sclasses = {"Chemistry", "Bio", "Physics", "Physical Science", "DE Geology"};
 	    String [] ssclasses = {"US History", "World History", "Human Geo", "Gov", "Econ"};
 	    
+
 	    int size = 500;	//number of students total
 		int[] ID = new int[size+1];
 		String[] name = new String[size];
@@ -35,10 +37,10 @@ public class pop {
 		for(int i=0; i<size; i++)	{	//loops through arrays to create students
 			ID[i]=i;
 			grade[i]=(9+(int)(Math.random()*4));	//randomizes grades 9-12
-			math[i]="Math "+ (1 + (int)(Math.random()*5));
-			social[i]="Social "+ (1 + (int)(Math.random()*5));
-			science[i]="Science "+ (1 + (int)(Math.random()*5));
-			english[i]="English "+ (1 + (int)(Math.random()*5));
+			math[i]="Math "+ (1 + (int)(Math.random()*coursesPerSub));
+			social[i]="Social "+ (1 + (int)(Math.random()*coursesPerSub));
+			science[i]="Science "+ (1 + (int)(Math.random()*coursesPerSub));
+			english[i]="English "+ (1 + (int)(Math.random()*coursesPerSub));
 			name[i]="hannah";	//names of students
 			}
 			
@@ -58,16 +60,15 @@ public class pop {
 			}
 			
 			
-			for(int i=0; i<20; i++){	//get count for each subject and their levels (20 total)
-				classes[i] = new Courses("math", mclasses[i/5]);
-				classes[i+1] = new Courses("science", sclasses[i/5]);
-				classes[i+2] = new Courses("english", eclasses[i/5]);
-				classes[i+3] = new Courses("social", ssclasses[i/5]);
-				i=i+3;
-				
+			for(int i=0; i<4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
+				classes[i] = new Courses("math", mclasses[i/coursePerSub]);
+				classes[i+1] = new Courses("science", sclasses[i/coursePerSub]);
+				classes[i+2] = new Courses("english", eclasses[i/coursePerSub]);
+				classes[i+3] = new Courses("social", ssclasses[i/coursePerSub]);
+				i=i+3;				
 			}
-			for(int i=0; i<20; i++){	//get count for each subject and their levels (20 total)
-				classes[i].setNumberOfStudents(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
+			for(int i=0; i< 4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
+				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
 				System.out.println("Number of Units for class: "+ classes[i].getUnits());
 				
 				//getNumberOfStudents("math", "Math 1");
@@ -93,3 +94,5 @@ public class pop {
 	 return -1;	//returns -1 if there is an error
 	}
 }
+
+

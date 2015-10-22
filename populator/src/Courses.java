@@ -1,3 +1,4 @@
+import java.util.List;
 
 public class Courses {
 	static int mcounter = 0;
@@ -53,11 +54,15 @@ public class Courses {
 		
 	}
 	
-	int setNumberOfStudents(int n){
+	int setUnits(int n){
 		units = (int)(((double)n/preferedSize)+.5);
+		if(units == 0){
+			units=1;
+		}
+		
 		return units;
 	}
-	
+
 	int getUnits(){
 		return units;
 	}
@@ -68,5 +73,8 @@ public class Courses {
 	String getCourseName(){
 		return courseName;
 	}
+	
+	
+	
 	
 }

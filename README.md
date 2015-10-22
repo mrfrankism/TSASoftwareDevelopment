@@ -46,6 +46,7 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|10/22/2015|Tested our method on paper of how to sort the periods of each class|3Hrs|Hannah, Franco, Gabriel|Began making the class to sort the periods|
 |10/20/2015|Made a new class to hold the different courses|4Hrs|Hannah, Franco|Had one million and one errors to solve, really difficult|
 |10/17/2015| Set up github Readme File| 3Hrs| Franco Baudino| Used Github's markdown language|
 |10/15/2015|Communicated with Mysql server and populated it| 3.5Hrs|Hannah, Franco|Got a bug authenticating with the server, the username was typed wrong|
