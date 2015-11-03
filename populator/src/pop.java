@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 //import com.mysql.jdbc.PreparedStatement;
 public class pop {
     public static int coursePerSub= 5;
-	static Connection conn;
+	public static Connection conn;
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
 		
@@ -34,13 +34,14 @@ public class pop {
 		String[] social = new String[size];
 		String[] science = new String[size];
 		String[] english = new String[size];
+		
 		for(int i=0; i<size; i++)	{	//loops through arrays to create students
 			ID[i]=i;
 			grade[i]=(9+(int)(Math.random()*4));	//randomizes grades 9-12
-			math[i]="Math "+ (1 + (int)(Math.random()*coursesPerSub));
-			social[i]="Social "+ (1 + (int)(Math.random()*coursesPerSub));
-			science[i]="Science "+ (1 + (int)(Math.random()*coursesPerSub));
-			english[i]="English "+ (1 + (int)(Math.random()*coursesPerSub));
+			math[i]="Math "+ (1 + (int)(Math.random()*coursePerSub));
+			social[i]="Social "+ (1 + (int)(Math.random()*coursePerSub));
+			science[i]="Science "+ (1 + (int)(Math.random()*coursePerSub));
+			english[i]="English "+ (1 + (int)(Math.random()*coursePerSub));
 			name[i]="hannah";	//names of students
 			}
 			
@@ -58,8 +59,6 @@ public class pop {
 			      preparedStmt.setString(7, english[i]);
 			      preparedStmt.execute();
 			}
-			
-			
 			for(int i=0; i<4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
 				classes[i] = new Courses("math", mclasses[i/coursePerSub]);
 				classes[i+1] = new Courses("science", sclasses[i/coursePerSub]);
@@ -69,10 +68,12 @@ public class pop {
 			}
 			for(int i=0; i< 4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
 				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
-				System.out.println("Number of Units for class: "+ classes[i].getUnits());
-				
-				//getNumberOfStudents("math", "Math 1");
+	  			System.out.println("Number of Units for class: "+ classes[i].getUnits());
 			}
+			
+			
+			periodGenerator pg = new periodGenerator();
+			pg.scheduele(classes);
 	}
 	public static int getNumberOfStudents(String subject, String course){
 		String query;
@@ -85,7 +86,6 @@ public class pop {
 			preparedStmt.execute();
 			rs1 = preparedStmt.getResultSet();
 			rs1.absolute(1);
-			System.out.println("Number of students for " + course + " : "+rs1.getInt(1));	
 			int a= rs1.getInt(1);
 			return a;
 		} catch (Exception e) {
