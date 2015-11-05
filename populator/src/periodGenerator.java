@@ -7,32 +7,43 @@ public class periodGenerator {
 	
 	public void scheduele( Courses [ ] c){	
 		int p[] ={ 0, 0, 0, 0, 0,0,0};
+		int counter[] = new int[7];
 		writeToMysql("", p[0], p[1], p[2], p[3], p[4],p[5], p[6]);
-		try{
-	     for(int j = 1; j < 100; j++){
+	try{
+	     for(int j = 1; j < 2000; j++){
 	    	 for(int i = 0; i < c.length; i++){
 	    		 if(c[i].getUnits() == j){
 	    			 for(int x = 0; x < 7; x++){
-	    				 String query = "select pd" + (x+1) + " from periods";
-	    				 java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql
-	    				 preparedStmt.execute();
-	    				 ResultSet rs1 = preparedStmt.getResultSet();
-	    				 rs1.absolute(1);
-	    				 System.out.println(rs1.getInt(1));
-	    					if(rs1.getInt(1) == 0) {
-	    						System.out.println("hi");
-	    						p[x] = 1;
-	    					}
-	    					
+	    				 counter[x]  = (int)addColumns("pd" + (x+1));
+	    				 System.out.println(counter[x]);
 	    			 }
-	    			
 	    			 
-	    			 System.out.println("HI");
+	    			 for(int h = 0; h<c[i].getUnits(); h++) {
+	    				 
+	    				 int lower_period = 6;
+		    			 for(int prev_period = 0; prev_period<7;prev_period++) {
+		    				 int last = 0;
+		    				 if(prev_period == 0) {
+		    					 last = counter[prev_period];
+		    				 } else if(counter[prev_period] < last) {
+		    					 lower_period = prev_period;
+		    				 }
+		    			 }
+		    			 System.out.println("Column Number: " + lower_period);
+		    			 p[lower_period] = 1;
+	    				 
+		    			 
+		    			 
+	    			 }
+	    			 
+	    			 
 	    			 writeToMysql(c[i].getCourseName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]);
+	    			 }
+	    		 
 	    		 }
 	    	 }
 	    	 
-	     }
+	     
 	}catch(Exception e){
 		System.out.println(e);
 		System.out.println("THERES A FUCKING ERROR BITCH");
@@ -58,5 +69,23 @@ public class periodGenerator {
 	}catch(Exception e){
 		
 	}
+	}
+	public static int addColumns(String period){
+		String query;
+		java.sql.PreparedStatement preparedStmt;
+		ResultSet rs1;
+
+		query = "SELECT  COUNT(" + period + ") FROM periods WHERE " + period + " = '1'";
+		try {
+			preparedStmt = pop.conn.prepareStatement(query);
+			preparedStmt.execute();
+			rs1 = preparedStmt.getResultSet();
+			rs1.absolute(1);
+			int a= rs1.getInt(1);
+			return a;
+		} catch (Exception e) {
+			System.out.println(e);
+		}		
+	 return -1;	//returns -1 if there is an error
 	}
 }
