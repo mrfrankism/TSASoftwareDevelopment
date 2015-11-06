@@ -46,7 +46,8 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
-|11/3/15|Started coding algorithms to sort units into periods|3Hrs|Hannah, Franco|Ran into some errors that were easily fixed, continued learning how to communicate with Mysql through JAVA|
+|11/05/2015|Addede more code to the sorting algorithms, incorporated some more key aspects of our sorting algorithm intothe periodGenerator class   |2Hrs|Hannah, Gabriel, Franco|Things ran fairly smoothly, no big errors thankfully|
+|11/03/2015|Started coding algorithms to sort units into periods|3Hrs|Hannah, Franco|Ran into some errors that were easily fixed, continued learning how to communicate with Mysql through JAVA|
 |10/22/2015|Tested our method on paper of how to sort the periods of each class|3Hrs|Hannah, Franco, Gabriel|Began making the class to sort the periods|
 |10/20/2015|Made a new class to hold the different courses|4Hrs|Hannah, Franco|Had one million and one errors to solve, really difficult|
 |10/17/2015| Set up github Readme File| 3Hrs| Franco Baudino| Used Github's markdown language|
