@@ -10,7 +10,7 @@ public class pop {
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
 		
-		conn = DriverManager
+		conn = DriverManager//build connection
 		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
 		              + "user=hannah&password=111998pw");
 	
@@ -18,9 +18,9 @@ public class pop {
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
 	      
-		Courses [] classes = new Courses[20];
+		Courses [] classes = new Courses[20]; //makes array of 20 courses (5 per subject)
 		
-		String [] mclasses = {"Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"};
+		String [] mclasses = {"Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"}; 
 		String [] eclasses = {"Ap-Lit", "Ap-Lang", "Lit Hrs", "Lang Hrs", "World Literature"};
 		String [] sclasses = {"Chemistry", "Bio", "Physics", "Physical Science", "DE Geology"};
 	    String [] ssclasses = {"US History", "World History", "Human Geo", "Gov", "Econ"};
@@ -75,20 +75,20 @@ public class pop {
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);
 	}
-	public static int getNumberOfStudents(String subject, String course){
+	public static int getNumberOfStudents(String subject, String course){ //gets total students enrolled in a course
 		String query;
-		java.sql.PreparedStatement preparedStmt;
+		java.sql.PreparedStatement preparedStmt; //sets up a query
 		ResultSet rs1;
 
-		query = "SELECT  COUNT(" + subject + ") FROM students WHERE " + subject + " = '" + course + "'";
+		query = "SELECT  COUNT(" + subject + ") FROM students WHERE " + subject + " = '" + course + "'"; //sends query to mysql to count amount of students enrolled in a course
 		try {
 			preparedStmt = conn.prepareStatement(query);
-			preparedStmt.execute();
+			preparedStmt.execute(); //run the statement
 			rs1 = preparedStmt.getResultSet();
-			rs1.absolute(1);
-			int a= rs1.getInt(1);
+			rs1.absolute(1); //goes to first row
+			int a= rs1.getInt(1); //value from first column
 			return a;
-		} catch (Exception e) {
+		} catch (Exception e) { //checks for error
 			System.out.println(e);
 		}		
 	 return -1;	//returns -1 if there is an error
