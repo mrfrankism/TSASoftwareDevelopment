@@ -43,7 +43,7 @@ public class periodGenerator {
 	    				 
 	    				 				
 	    			 }
-	    			 writeToMysql(c[i].getCourseName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
+	    			 writeToMysql(c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
 	    			 
 	    			 }
 	    		 

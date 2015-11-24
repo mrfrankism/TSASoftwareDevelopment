@@ -5,7 +5,8 @@ import java.sql.ResultSet;
 //import com.mysql.*;
 //import com.mysql.jdbc.PreparedStatement;
 public class pop {
-    public static int coursePerSub= 5;
+    public static int subOptions = 6;
+    public static int numPeriods = 7;
 	public static Connection conn;
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
@@ -18,14 +19,24 @@ public class pop {
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
 	      
-		Courses [] classes = new Courses[20]; //makes array of 20 courses (5 per subject)
+		Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
 		
 		String [] mclasses = {"Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"}; 
 		String [] eclasses = {"Ap-Lit", "Ap-Lang", "Lit Hrs", "Lang Hrs", "World Literature"};
 		String [] sclasses = {"Chemistry", "Bio", "Physics", "Physical Science", "DE Geology"};
 	    String [] ssclasses = {"US History", "World History", "Human Geo", "Gov", "Econ"};
 	    
-
+	    String[][] subjectss = new String[][]{
+	    	  { "math", "Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"},
+	    	  { "science", "Chemis", "Bio", "Physics", "Physical", "DE Geo" },
+	    	  { "social","US History", "World Hist", "Human Geo", "Gov", "Econ" },
+	    	  { "english","Ap-Lit", "Ap-Lang", "Lit Hrs", "Lang Hrs", "World Lit" },
+	    	  { "art", "3d art", "fabrics and fibers", "2d art", "sculpting", "art hist" },
+	    	  { "pe", "scuba", "gym", "sports1", "swim", "sailing" },
+	    	  { "language", "german", "spanish", "chineese", "hebrew", "portuge" }
+	    	};
+	    	
+	    int [][] students = new int [7][6];
 	    int size = 500;	//number of students total
 		int[] ID = new int[size+1];
 		String[] name = new String[size];
@@ -34,19 +45,27 @@ public class pop {
 		String[] social = new String[size];
 		String[] science = new String[size];
 		String[] english = new String[size];
+		String[] art= new String[size];
+		String[] pe = new String[size];
+		String[] language = new String[size];
 		
 		for(int i=0; i<size; i++)	{	//loops through arrays to create students
 			ID[i]=i;
 			grade[i]=(9+(int)(Math.random()*4));	//randomizes grades 9-12
-			math[i]="Math "+ (1 + (int)(Math.random()*coursePerSub));
-			social[i]="Social "+ (1 + (int)(Math.random()*coursePerSub));
-			science[i]="Science "+ (1 + (int)(Math.random()*coursePerSub));
-			english[i]="English "+ (1 + (int)(Math.random()*coursePerSub));
-			name[i]="hannah";	//names of students
+			
+	
+			math[i] = subjectss[0][(int)(1+Math.random()*(subOptions-1))];
+			science[i] = subjectss[1][(int)(1+Math.random()*(subOptions-1))];
+			social[i] = subjectss[2][(int)(1+Math.random()*(subOptions-1))];
+			english[i] = subjectss[3][(int)(1+Math.random()*(subOptions-1))];
+			art[i] = subjectss[4][(int)(1+Math.random()*(subOptions-1))];
+			pe[i] = subjectss[5][(int)(1+Math.random()*(subOptions-1))];
+			language[i] = subjectss[6][(int)(1+Math.random()*(subOptions-1))];
+			name[i]="hannah";	//names of students**********
 			}
 			
-			String query = "insert into students (id, name, grade, math, science, social, english)"
-			        + " values (?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into students (id, name, grade, math, science, social, english, art, pe, language)"
+			        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement preparedStmt = conn.prepareStatement(query);	//sends statement to mysql
 			
 			for(int i = 0; i < size; i++){	//loops through arrays to give (collumn, value) for each row
@@ -57,17 +76,36 @@ public class pop {
 			      preparedStmt.setString(5, science[i]);
 			      preparedStmt.setString(6, social[i]);
 			      preparedStmt.setString(7, english[i]);
+			      preparedStmt.setString(8, art[i]);
+			      preparedStmt.setString(9, pe[i]);
+			      preparedStmt.setString(10, language[i]);
 			      preparedStmt.execute();
 			}
-			for(int i=0; i<4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
-				classes[i] = new Courses("math", mclasses[i/coursePerSub]);
-				classes[i+1] = new Courses("science", sclasses[i/coursePerSub]);
-				classes[i+2] = new Courses("english", eclasses[i/coursePerSub]);
-				classes[i+3] = new Courses("social", ssclasses[i/coursePerSub]);
-				i=i+3;				
-			}
-			for(int i=0; i< 4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
-				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
+//			for(int i=0; i<4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
+//				classes[i] = new Courses("math", mclasses[i/coursePerSub]);
+//				classes[i+1] = new Courses("science", sclasses[i/coursePerSub]);
+//				classes[i+2] = new Courses("english", eclasses[i/coursePerSub]);
+//				classes[i+3] = new Courses("social", ssclasses[i/coursePerSub]);
+//				i=i+3;				
+//			}
+			
+			for(int i=0; i<numPeriods*subOptions; i++){	//get count for each subject and their levels (20 total)
+			classes[i] = new Courses(subjectss[0][0], subjectss[0][i/subOptions]);
+			classes[i+1] = new Courses(subjectss[1][0], subjectss[1][i/subOptions]);
+			classes[i+2] = new Courses(subjectss[2][0], subjectss[2][i/subOptions]);
+			classes[i+3] = new Courses(subjectss[3][0], subjectss[3][i/subOptions]);
+			classes[i+4] = new Courses(subjectss[4][0], subjectss[4][i/subOptions]);
+			classes[i+5] = new Courses(subjectss[5][0], subjectss[5][i/subOptions]);
+			classes[i+6] = new Courses(subjectss[6][0] , subjectss[6][i/subOptions]);
+
+			i=i+6;				
+		}
+			
+			
+			
+			for(int i=0; i< numPeriods*subOptions; i++){	//get count for each subject and their levels (20 total)
+				//classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
+				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getClassName()));
 	  			System.out.println("Number of Units for class: "+ classes[i].getUnits());
 			}
 			

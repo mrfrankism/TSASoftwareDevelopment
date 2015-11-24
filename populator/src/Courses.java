@@ -74,7 +74,9 @@ public class Courses {
 		return courseName;
 	}
 	
-	
+	String getClassName(){
+		return className;
+	}
 	
 	
 }
