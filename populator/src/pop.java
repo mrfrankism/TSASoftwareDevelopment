@@ -1,6 +1,10 @@
 import java.sql.DriverManager;
+import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.swing.JProgressBar;
+
 import java.sql.ResultSet;
 //import com.mysql.*;
 //import com.mysql.jdbc.PreparedStatement;
@@ -8,13 +12,28 @@ public class pop {
     public static int subOptions = 6;
     public static int numPeriods = 7;
 	public static Connection conn;
+	public static int size = 500;	//number of students total
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GUI window = new GUI();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		conn = DriverManager//build connection
-		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
-		              + "user=hannah&password=111998pw");
+		          .getConnection("jdbc:mysql://localhost:3306/school?"
+		              + "user=root&password=mastacademy");
 	
+//		conn = DriverManager//build connection
+//		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
+//		              + "user=hannah&password=111998pw");
+		
 		
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
@@ -36,8 +55,6 @@ public class pop {
 	    	  { "language", "german", "spanish", "chineese", "hebrew", "portuge" }
 	    	};
 	    	
-	    int [][] students = new int [7][6];
-	    int size = 500;	//number of students total
 		int[] ID = new int[size+1];
 		String[] name = new String[size];
 		int[] grade = new int[size];
@@ -80,7 +97,10 @@ public class pop {
 			      preparedStmt.setString(9, pe[i]);
 			      preparedStmt.setString(10, language[i]);
 			      preparedStmt.execute();
+			      GUI.progressBar.setValue(i);
 			}
+			
+			GUI.textArea.append("Done adding to database");
 //			for(int i=0; i<4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
 //				classes[i] = new Courses("math", mclasses[i/coursePerSub]);
 //				classes[i+1] = new Courses("science", sclasses[i/coursePerSub]);
