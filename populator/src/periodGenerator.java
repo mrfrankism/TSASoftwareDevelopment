@@ -8,7 +8,8 @@ public class periodGenerator {
 	public void scheduele( Courses [ ] c){	
 		int p[] ={ 0, 0, 0, 0, 0,0,0};//set array for p values of 1 or 0 to represent if class in that period is filled or not
 		int counter[] = new int[7]; //make an empty array for each of the periods
-		writeToMysql("", p[0], p[1], p[2], p[3], p[4],p[5], p[6]);//must write first row of zeros for the rest to run
+		int rowNumber = 0;
+		writeToMysql(rowNumber, "", p[0], p[1], p[2], p[3], p[4],p[5], p[6]);//must write first row of zeros for the rest to run
 	try{
 	     for(int j = 1; j < 2000; j++){
 	    	 for(int i = 0; i < c.length; i++){ //loops through the actual course names (provided by array from pop)
@@ -43,7 +44,8 @@ public class periodGenerator {
 	    				 
 	    				 				
 	    			 }
-	    			 writeToMysql(c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
+	    			 rowNumber++;
+	    			 writeToMysql(rowNumber, c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
 	    			 
 	    			 }
 	    		 
@@ -57,12 +59,11 @@ public class periodGenerator {
 	}
 	}
 	
-	public void writeToMysql(String n, int pd1, int pd2, int pd3, int pd4, int pd5, int pd6, int pd7){ //write the periods table to mysql
+	public void writeToMysql(int rowNum, String n, int pd1, int pd2, int pd3, int pd4, int pd5, int pd6, int pd7){ //write the periods table to mysql
 		try{
-		String query = "insert into periods (className, pd1, pd2, pd3, pd4, pd5, pd6, pd7)"
-		        + " values (?, ?, ?, ?, ?, ?, ?, ?)"; 
+		String query = "insert into periods (className, pd1, pd2, pd3, pd4, pd5, pd6, pd7, row)"
+		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 		java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql
-		
 		      preparedStmt.setString (1, n);
 		      preparedStmt.setInt(2, pd1);
 		      preparedStmt.setInt(3, pd2);
@@ -71,6 +72,7 @@ public class periodGenerator {
 		      preparedStmt.setInt(6, pd5);
 		      preparedStmt.setInt(7, pd6);
 		      preparedStmt.setInt(8, pd7);
+		      preparedStmt.setInt(9, rowNum);
 		      preparedStmt.execute();
 		
 	}catch(Exception e){ 

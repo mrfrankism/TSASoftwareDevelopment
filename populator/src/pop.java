@@ -1,7 +1,9 @@
 import java.sql.DriverManager;
 import java.awt.EventQueue;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 
 import javax.swing.JProgressBar;
 
@@ -26,13 +28,13 @@ public class pop {
 			}
 		});
 		
-		conn = DriverManager//build connection
-		          .getConnection("jdbc:mysql://localhost:3306/school?"
-		              + "user=root&password=mastacademy");
-	
 //		conn = DriverManager//build connection
-//		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
-//		              + "user=hannah&password=111998pw");
+//		          .getConnection("jdbc:mysql://localhost:3306/school?"
+//		              + "user=root&password=mastacademy");
+	
+		conn = DriverManager//build connection
+		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
+		              + "user=hannah&password=111998pw");
 		
 		
 		Class.forName("com.mysql.jdbc.Driver");
@@ -132,6 +134,7 @@ public class pop {
 			
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);
+			
 	}
 	public static int getNumberOfStudents(String subject, String course){ //gets total students enrolled in a course
 		String query;
@@ -151,6 +154,31 @@ public class pop {
 		}		
 	 return -1;	//returns -1 if there is an error
 	}
+	
+	int [] getStudents(String subject, String className){
+		String query;
+		java.sql.PreparedStatement preparedStmt; //sets up a query
+		ResultSet rs1;
+		int [] ids = null;
+		int amountOfStudents = getNumberOfStudents(subject, className);
+		query = "SELECT * FROM students WHERE " + subject + " = '" + className + "'"; //sends query to mysql to count amount of students enrolled in a course
+		try {
+			preparedStmt = conn.prepareStatement(query);
+			preparedStmt.execute(); //run the statement
+			rs1 = preparedStmt.getResultSet();
+			rs1.absolute(1); //goes to first row
+			ids = new int [amountOfStudents];
+			for (int i =0; i < amountOfStudents; i++){
+			ids[i] = rs1.getInt("id"); //value from first column
+			rs1.absolute(2+i);
+			}
+			return ids;
+		} catch (Exception e) { //checks for error
+			System.out.println(e);
+		}		
+	 return ids;	//returns -1 if there is an error
+	}
 }
+
 
 

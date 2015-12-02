@@ -46,6 +46,7 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|12/01/2015|Started a new class to sort students into their actual classes, and added a new row the periods table|4hrs| Hannah, Franco| Worked a lot today|
 |11/26/2015|Started the GUI class for one of the windows for the GUI|2Hrs|Franco|Make sure to have ssh on the server computer so we ca acccess it over the internet and make any changes we need to do to the server when we are at the competiton, THIS IS VERY IMPORTANT!|
 |11/24/2015|Fixed/cleaned up a lot oof code in our main class and simplified the way classes are wrtten to the database|2.5Hrs|Hannah, Gabriel, Franco|Made it so that the actual class names show up rather than just "MATH1, MATH2.."|
 |11/05/2015|Addede more code to the sorting algorithms, incorporated some more key aspects of our sorting algorithm intothe periodGenerator class   |2Hrs|Hannah, Gabriel, Franco|Things ran fairly smoothly, no big errors thankfully|
