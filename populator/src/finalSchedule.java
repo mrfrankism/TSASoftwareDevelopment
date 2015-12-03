@@ -1,6 +1,6 @@
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.util.Arrays;
 public class finalSchedule {
 	{
 	String query;
@@ -17,7 +17,7 @@ public class finalSchedule {
 		String name = rs1.getString("name");
 		int grade = rs1.getInt("grade");
 		String [] courses = new String [7];
-		int [] rowVal = new int(7);
+		int [] rowVal = new int [7];
 		for (int x = 0; x < courses.length; x++){
 			courses[x] = rs1.getString(4+x);
 			query = "SELECT row FROM periods where classname = " + courses[x];
@@ -25,10 +25,18 @@ public class finalSchedule {
 			preparedStmt.execute(); //run the statement
 			rowVal[x] = preparedStmt.getResultSet().getInt(1);
 		}
-		int lowestVal = 999999;
+		
+		String [] newCourses = new String [7];
+		int [] newRowVal = rowVal;
+		
+		Arrays.sort(newRowVal);
+	
 		for(int x = 0; x < rowVal.length; x++){
-			int currentValue = rowVal[x];
-			if(currentVal < lowestVal) lowestVal = currentVal;
+			for(int y = 0; y < rowVal.length; x++){
+				if (newRowVal[x]==rowVal[y]){
+					newCourses[x]=courses[y];
+				}
+			}
 		}
 		
 		

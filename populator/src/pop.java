@@ -87,7 +87,7 @@ public class pop {
 			        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			java.sql.PreparedStatement preparedStmt = conn.prepareStatement(query);	//sends statement to mysql
 			
-			for(int i = 0; i < size; i++){	//loops through arrays to give (collumn, value) for each row
+			for(int i = 0; i < size; i++){	//loops through arrays to give (column, value) for each row
 			      preparedStmt.setInt (1, ID[i]);
 			      preparedStmt.setString(2, name[i]);
 			      preparedStmt.setInt(3, grade[i]);
