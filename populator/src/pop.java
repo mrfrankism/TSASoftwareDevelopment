@@ -42,10 +42,6 @@ public class pop {
 	      
 		Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
 		
-		String [] mclasses = {"Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"}; 
-		String [] eclasses = {"Ap-Lit", "Ap-Lang", "Lit Hrs", "Lang Hrs", "World Literature"};
-		String [] sclasses = {"Chemistry", "Bio", "Physics", "Physical Science", "DE Geology"};
-	    String [] ssclasses = {"US History", "World History", "Human Geo", "Gov", "Econ"};
 	    
 	    String[][] subjectss = new String[][]{
 	    	  { "math", "Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"},
@@ -102,14 +98,18 @@ public class pop {
 			      GUI.progressBar.setValue(i);
 			}
 			
+			query = "insert into Classes (class_Name, subject)"
+			        + " values (?, ?)";
+			preparedStmt = conn.prepareStatement(query);
+			for(int i = 0; i < subjectss.length; i++){	//loops through arrays to give (column, value) for each row
+				for(int x = 1; x < subjectss[i].length; x++){
+			      preparedStmt.setString (1, subjectss[i][x]);
+			      preparedStmt.setString(2, subjectss[i][0]);
+			      preparedStmt.execute();
+			}
+			}
 			GUI.textArea.append("Done adding to database");
-//			for(int i=0; i<4*coursePerSub; i++){	//get count for each subject and their levels (20 total)
-//				classes[i] = new Courses("math", mclasses[i/coursePerSub]);
-//				classes[i+1] = new Courses("science", sclasses[i/coursePerSub]);
-//				classes[i+2] = new Courses("english", eclasses[i/coursePerSub]);
-//				classes[i+3] = new Courses("social", ssclasses[i/coursePerSub]);
-//				i=i+3;				
-//			}
+
 			
 			for(int i=0; i<numPeriods*subOptions; i++){	//get count for each subject and their levels (20 total)
 			classes[i] = new Courses(subjectss[0][0], subjectss[0][i/subOptions]);
@@ -128,12 +128,14 @@ public class pop {
 			for(int i=0; i< numPeriods*subOptions; i++){	//get count for each subject and their levels (20 total)
 				//classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
 				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getClassName()));
-	  			System.out.println("Number of Units for class: "+ classes[i].getUnits());
+	  			//System.out.println("Number of Units for class: "+ classes[i].getUnits());
 			}
 			
 			
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);
+			finalSchedule f = new finalSchedule();
+			f.makeSchedules();
 			
 	}
 	public static int getNumberOfStudents(String subject, String course){ //gets total students enrolled in a course
