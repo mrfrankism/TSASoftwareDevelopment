@@ -6,13 +6,20 @@ public class finalSchedule {
 	ResultSet rs1; 
 	java.sql.PreparedStatement preparedStmt; //sets up a query
 	
-	
+	int[][] periodChart = 
+			periodGenerator.periodChart2;
 	public void makeSchedules(){
 	
 	
 	
-	 int [][] periodChart = periodGenerator.periodChart2;
 	
+	for(int x = 0; x < periodChart.length; x++){
+		for( int y = 0; y < periodChart[x].length; y++){
+			System.out.println(periodChart[x][y]);
+		}
+		System.out.println("-new row-");
+	}
+		
 	for(int g = 0; g < pop.size; g++){
 	query = "SELECT * FROM students "; //sends query to mysql to count amount of students enrolled in a course
 	
@@ -62,16 +69,14 @@ public class finalSchedule {
 			
 			
 			for(int j = 0; j < pop.numPeriods; j++){//looping through periods of hannah's courses
-				int poop=periodChart[newRowVal[h]][j];
-				System.out.println(poop);
-			if(periodChart[newRowVal[h]][j] != -1 && (classes[j] == "" ||classes[j] == null)){//if value in the chart is not equal to -1 and that place in the person's scheduele is not taken
+			if((periodChart[newRowVal[h]][j] > -1) && (classes[j] == "" ||classes[j] == null)){//if value in the chart is not equal to -1 and that place in the person's scheduele is not taken
 				if(periodChart[newRowVal[h]][j] < temp) temp = periodChart[newRowVal[h]][j];
 			}		
 		}
 			
 			for (int j = 0; j < pop.numPeriods; j++){
 				if(periodChart[newRowVal[h]][j] == temp){
-					//periodChart[newRowVal[h]][j]++;
+					periodChart[newRowVal[h]][j]++;
 					classes[j] = newCourses[h];
 					break;
 					

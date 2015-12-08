@@ -46,6 +46,7 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|12/08/2015|Worked on solving bugs and overall issues |2.25Hrs|Hannah, Gabriel, Franco| Many bugs that we still dont understand are occuring|
 |12/02/2015|Added an array function and sorted the row values from least to greatest, started a server on a seperate windows computer and added ssh functionality to it|5.5Hrs|Hannah, Franco| A lot of work setting up the server|
 |12/01/2015|Started a new class to sort students into their actual classes, and added a new row the periods table|4hrs| Hannah, Franco| Worked a lot today|
 |11/26/2015|Started the GUI class for one of the windows for the GUI|2Hrs|Franco|Make sure to have ssh on the server computer so we ca acccess it over the internet and make any changes we need to do to the server when we are at the competiton, THIS IS VERY IMPORTANT!|

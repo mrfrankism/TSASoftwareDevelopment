@@ -3,7 +3,7 @@ import java.sql.ResultSet;
 public class periodGenerator {
 
 
-	static int [][] periodChart2 = new int[pop.numPeriods*(pop.subOptions)][pop.numPeriods];
+	public static int [][] periodChart2 = new int[pop.numPeriods*(pop.subOptions)][pop.numPeriods];
 	
 	public void scheduele( Courses [ ] c){	
 		
@@ -49,12 +49,13 @@ public class periodGenerator {
 	    			 writeToMysql(rowNumber, c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
 	    			 for(int f = 0; f < pop.numPeriods; f++){
 	    				 if( p[f]==0) {
-	    					 periodChart2[i][f] = -2;
-	    				 
+	    					 periodChart2[i][f] = -1;
+	    					 System.out.println(periodChart2[i][f]);
 	    				 }
-	    				 else periodChart2[i][f] = 0;
-	    				 System.out.println(periodChart2[i][f]);
+	    				 else {periodChart2[i][f] = 0;
+	    				 System.out.println(periodChart2[i][f]);}
 	    			 }
+	    			 System.out.println("--new row--");
 	    			 }
 	    		 
 	    		 }
