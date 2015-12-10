@@ -13,12 +13,12 @@ public class finalSchedule {
 	
 	
 	
-	for(int x = 0; x < periodChart.length; x++){
-		for( int y = 0; y < periodChart[x].length; y++){
-			System.out.println(periodChart[x][y]);
-		}
-		System.out.println("-new row-");
-	}
+//	for(int x = 0; x < periodChart.length; x++){
+//		for( int y = 0; y < periodChart[x].length; y++){
+//			System.out.println(periodChart[x][y]);
+//		}
+//		System.out.println("-new row-");
+//	}
 		
 	for(int g = 0; g < pop.size; g++){
 	query = "SELECT * FROM students "; //sends query to mysql to count amount of students enrolled in a course
@@ -69,16 +69,18 @@ public class finalSchedule {
 			
 			
 			for(int j = 0; j < pop.numPeriods; j++){//looping through periods of hannah's courses
-			if((periodChart[newRowVal[h]][j] > -1) && (classes[j] == "" ||classes[j] == null)){//if value in the chart is not equal to -1 and that place in the person's scheduele is not taken
-				if(periodChart[newRowVal[h]][j] < temp) temp = periodChart[newRowVal[h]][j];
+			if((periodChart[newRowVal[h]-1][j] > -1) && (classes[j] == "" ||classes[j] == null)){//if value in the chart is not equal to -1 and that place in the person's scheduele is not taken
+				if(periodChart[newRowVal[h]-1][j] < temp) temp = periodChart[newRowVal[h]-1][j];
+				
 			}		
 		}
-			
+			innerloop:
 			for (int j = 0; j < pop.numPeriods; j++){
-				if(periodChart[newRowVal[h]][j] == temp){
-					periodChart[newRowVal[h]][j]++;
+				if((periodChart[newRowVal[h]-1][j] == temp) && (periodChart[newRowVal[h]-1][j] > -1) && ((classes[j] == "" )||(classes[j] == null))){
+					//System.out.println(periodChart[newRowVal[h]-1][j]);
+					periodChart[newRowVal[h]-1][j]=(periodChart[newRowVal[h]-1][j])+1;		
 					classes[j] = newCourses[h];
-					break;
+					break innerloop;
 					
 				}
 			}
@@ -86,7 +88,7 @@ public class finalSchedule {
 		}
 		writeClassesToMysql(id, name, grade, classes);	
 	} catch (Exception e) { //checks for error
-		System.out.println(e);
+		System.out.println("Error here ");
 	//returns -1 if there is an error
 }
 

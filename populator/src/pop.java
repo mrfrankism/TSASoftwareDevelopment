@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 //import com.mysql.*;
 //import com.mysql.jdbc.PreparedStatement;
 public class pop {
-    public static int subOptions = 6;
+    public static int subOptions = 5;
     public static int numPeriods = 7;
 	public static Connection conn;
 	public static int size = 500;	//number of students total
@@ -69,13 +69,13 @@ public class pop {
 			grade[i]=(9+(int)(Math.random()*4));	//randomizes grades 9-12
 			
 	
-			math[i] = subjectss[0][(int)(1+Math.random()*(subOptions-1))];
-			science[i] = subjectss[1][(int)(1+Math.random()*(subOptions-1))];
-			social[i] = subjectss[2][(int)(1+Math.random()*(subOptions-1))];
-			english[i] = subjectss[3][(int)(1+Math.random()*(subOptions-1))];
-			art[i] = subjectss[4][(int)(1+Math.random()*(subOptions-1))];
-			pe[i] = subjectss[5][(int)(1+Math.random()*(subOptions-1))];
-			language[i] = subjectss[6][(int)(1+Math.random()*(subOptions-1))];
+			math[i] = subjectss[0][(int)(1+Math.random()*(subOptions))];
+			science[i] = subjectss[1][(int)(1+Math.random()*(subOptions))];
+			social[i] = subjectss[2][(int)(1+Math.random()*(subOptions))];
+			english[i] = subjectss[3][(int)(1+Math.random()*(subOptions))];
+			art[i] = subjectss[4][(int)(1+Math.random()*(subOptions))];
+			pe[i] = subjectss[5][(int)(1+Math.random()*(subOptions))];
+			language[i] = subjectss[6][(int)(1+Math.random()*(subOptions))];
 			name[i]="hannah";	//names of students**********
 			}
 			
@@ -111,24 +111,20 @@ public class pop {
 			GUI.textArea.append("Done adding to database");
 
 			
-			for(int i=0; i<numPeriods*subOptions; i++){	//get count for each subject and their levels (20 total)
-			classes[i] = new Courses(subjectss[0][0], subjectss[0][i/subOptions]);
-			classes[i+1] = new Courses(subjectss[1][0], subjectss[1][i/subOptions]);
-			classes[i+2] = new Courses(subjectss[2][0], subjectss[2][i/subOptions]);
-			classes[i+3] = new Courses(subjectss[3][0], subjectss[3][i/subOptions]);
-			classes[i+4] = new Courses(subjectss[4][0], subjectss[4][i/subOptions]);
-			classes[i+5] = new Courses(subjectss[5][0], subjectss[5][i/subOptions]);
-			classes[i+6] = new Courses(subjectss[6][0] , subjectss[6][i/subOptions]);
-
-			i=i+6;				
-		}
+			int z = 0;
+			for ( int j = 0; j < numPeriods; j++){
+				for ( int o = 1; o < subOptions+1; o++ ){
+				classes[z] = new Courses(subjectss[j][0], subjectss[j][o]);
+				z++;
+				}
+			}
+							
+		
 			
 			
 			
-			for(int i=0; i< numPeriods*subOptions; i++){	//get count for each subject and their levels (20 total)
-				//classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getCourseName()));
+			for(int i=0; i< numPeriods*(subOptions); i++){	//get count for each subject and their levels (20 total)
 				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getClassName()));
-	  			//System.out.println("Number of Units for class: "+ classes[i].getUnits());
 			}
 			
 			

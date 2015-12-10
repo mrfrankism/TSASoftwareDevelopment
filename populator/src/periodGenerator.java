@@ -49,7 +49,7 @@ public class periodGenerator {
 	    			 writeToMysql(rowNumber, c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
 	    			 for(int f = 0; f < pop.numPeriods; f++){
 	    				 if( p[f]==0) {
-	    					 periodChart2[i][f] = -1;
+	    					 periodChart2[i][f] = -2;
 	    					 System.out.println(periodChart2[i][f]);
 	    				 }
 	    				 else {periodChart2[i][f] = 0;
