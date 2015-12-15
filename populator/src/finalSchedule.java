@@ -55,9 +55,17 @@ public class finalSchedule {
 		Arrays.sort(newRowVal);
 	
 		for(int x = 0; x < rowVal.length; x++){
+			System.out.println("Newrowval:  " + newRowVal[x]);
+			System.out.print(rowVal[x]);
 			for(int y = 0; y < rowVal.length; y++){
+				
+				
+				
 				if (newRowVal[x]==rowVal[y]){
 					newCourses[x]=courses[y];
+					System.out.println(courses[x]);
+					System.out.println(newCourses[x]);
+					
 				}
 			}
 		}
@@ -68,15 +76,16 @@ public class finalSchedule {
 			int temp = 999;
 			
 			
-			for(int j = 0; j < pop.numPeriods; j++){//looping through periods of hannah's courses
-			if((periodChart[newRowVal[h]-1][j] > -1) && (classes[j] == "" ||classes[j] == null)){//if value in the chart is not equal to -1 and that place in the person's scheduele is not taken
-				if(periodChart[newRowVal[h]-1][j] < temp) temp = periodChart[newRowVal[h]-1][j];
-				
-			}		
-		}
+//			for(int j = 0; j < pop.numPeriods; j++){//looping through periods of hannah's courses
+//				//System.out.println(periodChart[newRowVal[h]-1][j]);
+//			if((periodChart[newRowVal[h]-1][j] > -1) && (classes[j] == "" ||classes[j] == null)){//if value in the chart is not equal to -1 and that place in the person's scheduele is not taken
+//				if(periodChart[newRowVal[h]-1][j] < temp) temp = periodChart[newRowVal[h]-1][j];
+//				
+//			}		
+//		}
 			innerloop:
 			for (int j = 0; j < pop.numPeriods; j++){
-				if((periodChart[newRowVal[h]-1][j] == temp) && (periodChart[newRowVal[h]-1][j] > -1) && ((classes[j] == "" )||(classes[j] == null))){
+				if((periodChart[newRowVal[h]-1][j] != temp) && (periodChart[newRowVal[h]-1][j] > -1) && ((classes[j] == "" )||(classes[j] == null))){
 					//System.out.println(periodChart[newRowVal[h]-1][j]);
 					periodChart[newRowVal[h]-1][j]=(periodChart[newRowVal[h]-1][j])+1;		
 					classes[j] = newCourses[h];

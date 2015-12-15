@@ -50,12 +50,13 @@ public class periodGenerator {
 	    			 for(int f = 0; f < pop.numPeriods; f++){
 	    				 if( p[f]==0) {
 	    					 periodChart2[i][f] = -2;
-	    					 System.out.println(periodChart2[i][f]);
+	    				//	 System.out.println(periodChart2[i][f]);
 	    				 }
 	    				 else {periodChart2[i][f] = 0;
-	    				 System.out.println(periodChart2[i][f]);}
+	    			//	 System.out.println(periodChart2[i][f]);
+	    				 }
 	    			 }
-	    			 System.out.println("--new row--");
+	    		//	 System.out.println("--new row--");
 	    			 }
 	    		 
 	    		 }

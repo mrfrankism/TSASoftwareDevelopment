@@ -14,7 +14,7 @@ public class pop {
     public static int subOptions = 5;
     public static int numPeriods = 7;
 	public static Connection conn;
-	public static int size = 500;	//number of students total
+	public static int size = 200;	//number of students total
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
 		EventQueue.invokeLater(new Runnable() {
