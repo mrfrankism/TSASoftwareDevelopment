@@ -15,6 +15,9 @@ public class pop {
     public static int numPeriods = 7;
 	public static Connection conn;
 	public static int size = 200;	//number of students total
+	
+	public static Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
+	
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
 		EventQueue.invokeLater(new Runnable() {
@@ -40,7 +43,6 @@ public class pop {
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
 	      
-		Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
 		
 	    
 	    String[][] subjectss = new String[][]{
@@ -91,7 +93,7 @@ public class pop {
 			      preparedStmt.setString(5, science[i]);
 			      preparedStmt.setString(6, social[i]);
 			      preparedStmt.setString(7, english[i]);
-			      preparedStmt.setString(8, art[i]);
+		 	      preparedStmt.setString(8, art[i]);
 			      preparedStmt.setString(9, pe[i]);
 			      preparedStmt.setString(10, language[i]);
 			      preparedStmt.execute();

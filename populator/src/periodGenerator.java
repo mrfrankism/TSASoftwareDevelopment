@@ -4,6 +4,7 @@ public class periodGenerator {
 
 
 	public static int [][] periodChart2 = new int[pop.numPeriods*(pop.subOptions)][pop.numPeriods];
+	public static String[] testShit = new String[2000];
 	
 	public void scheduele( Courses [ ] c){	
 		
@@ -47,21 +48,14 @@ public class periodGenerator {
 	    			 }
 	    			 rowNumber++;
 	    			 writeToMysql(rowNumber, c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
-	    			 for(int f = 0; f < pop.numPeriods; f++){
-	    				 if( p[f]==0) {
-	    					 periodChart2[i][f] = -2;
-	    				//	 System.out.println(periodChart2[i][f]);
-	    				 }
-	    				 else {periodChart2[i][f] = 0;
-	    			//	 System.out.println(periodChart2[i][f]);
-	    				 }
-	    			 }
-	    		//	 System.out.println("--new row--");
 	    			 }
 	    		 
 	    		 }
 	    	 }
 	    	 
+	     for(String s:testShit) {
+	    	 System.out.println("SHIT:  "   + s);
+	     }
 	     
 	}catch(Exception e){ //catches errors
 		System.out.println(e);
@@ -71,6 +65,20 @@ public class periodGenerator {
 	
 	public void writeToMysql(int rowNum, String n, int pd1, int pd2, int pd3, int pd4, int pd5, int pd6, int pd7){ //write the periods table to mysql
 		try{
+			
+			int [] p = {pd1, pd2 ,pd3,pd4,pd5,pd6,pd7};
+			 for(int f = 0; f < pop.numPeriods; f++){
+				 if( p[f]==0) {
+					 periodChart2[rowNum][f] = -2;
+				//	 System.out.println(periodChart2[i][f]);
+				 }
+				 else {periodChart2[rowNum][f] = 0;
+			//	 System.out.println(periodChart2[i][f]);
+				 }
+			 }
+			
+			
+			
 		String query = "insert into periods (className, pd1, pd2, pd3, pd4, pd5, pd6, pd7, row)"
 		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 		java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql

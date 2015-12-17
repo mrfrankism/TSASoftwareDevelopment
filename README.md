@@ -46,6 +46,9 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|12/17/2015|Worked on fixing the bugs that have stumped us for an entire week |2.5 Hrs|Gabriel, Franco|We finally fixed the errorrr!!!!! super good work done today and discussed some more about the GUI, also made a note on possible features of the GUI|
+|12/15/2015|Bugs? |2hrs?|Hannah, Franco|What did we dooo |
+|12/10/2015|did we work ?? ||| |
 |12/08/2015|Worked on solving bugs and overall issues |2.25Hrs|Hannah, Gabriel, Franco| Many bugs that we still dont understand are occuring|
 |12/02/2015|Added an array function and sorted the row values from least to greatest, started a server on a seperate windows computer and added ssh functionality to it|5.5Hrs|Hannah, Franco| A lot of work setting up the server|
 |12/01/2015|Started a new class to sort students into their actual classes, and added a new row the periods table|4hrs| Hannah, Franco| Worked a lot today|

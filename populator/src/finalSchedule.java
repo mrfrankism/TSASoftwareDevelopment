@@ -10,7 +10,9 @@ public class finalSchedule {
 			periodGenerator.periodChart2;
 	public void makeSchedules(){
 	
-	
+		for(int s = 0; s<pop.classes.length;s++) {
+			System.out.println("Comming from schedules    " + pop.classes[s].getClassName());
+		}
 	
 	
 //	for(int x = 0; x < periodChart.length; x++){
@@ -49,27 +51,29 @@ public class finalSchedule {
 			rowVal[x] = rs1.getInt(1);
 		}
 		
+		for (int n : rowVal){
+			//System.out.println( "RowVal:  " +n);
+		}
 		String [] newCourses = new String [7];
 		int [] newRowVal = rowVal;
+		newCourses = courses;
+//		Arrays.sort(newRowVal);
+//	
+//		for(int x = 0; x < rowVal.length; x++){
+//			System.out.println("Newrowval:  " + newRowVal[x]);
+//			//System.out.print(rowVal[x]);
+//			for(int y = 0; y < rowVal.length; y++){
+//				
+//				
+//				
+//				if (newRowVal[x]==rowVal[y]){
+//					newCourses[x]=courses[y];
+//					
+//				}
+//			}
+//		}
 		
-		Arrays.sort(newRowVal);
 	
-		for(int x = 0; x < rowVal.length; x++){
-			System.out.println("Newrowval:  " + newRowVal[x]);
-			System.out.print(rowVal[x]);
-			for(int y = 0; y < rowVal.length; y++){
-				
-				
-				
-				if (newRowVal[x]==rowVal[y]){
-					newCourses[x]=courses[y];
-					System.out.println(courses[x]);
-					System.out.println(newCourses[x]);
-					
-				}
-			}
-		}
-
 		String [] classes = new String[pop.numPeriods];
 		
 		for(int h = 0; h < newCourses.length; h++){//looping through hannah's courses
@@ -85,9 +89,9 @@ public class finalSchedule {
 //		}
 			innerloop:
 			for (int j = 0; j < pop.numPeriods; j++){
-				if((periodChart[newRowVal[h]-1][j] != temp) && (periodChart[newRowVal[h]-1][j] > -1) && ((classes[j] == "" )||(classes[j] == null))){
+				if((periodChart[newRowVal[h]][j] != temp) && (periodChart[newRowVal[h]][j] > -1) && ((classes[j] == "" )||(classes[j] == null))){
 					//System.out.println(periodChart[newRowVal[h]-1][j]);
-					periodChart[newRowVal[h]-1][j]=(periodChart[newRowVal[h]-1][j])+1;		
+					periodChart[newRowVal[h]][j] += 1;		
 					classes[j] = newCourses[h];
 					break innerloop;
 					
@@ -95,6 +99,9 @@ public class finalSchedule {
 			}
 			
 		}
+		
+		
+		
 		writeClassesToMysql(id, name, grade, classes);	
 	} catch (Exception e) { //checks for error
 		System.out.println("Error here ");
