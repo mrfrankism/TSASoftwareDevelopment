@@ -7,9 +7,9 @@
 
 <br>Grade : 11
 
-<br>Intended Major:
+<br>Intended Major: COmputer Science
 
-<br>First Experience Programming:
+<br>First Experience Programming: AP COmputer Science
 
 
 
@@ -19,7 +19,7 @@
 
 <br>Intended Major: Biomedical Eng
 
-<br>First Experience Programming:
+<br>First Experience Programming:Coding in Minecraft
 
 <hr/></div>
 
