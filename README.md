@@ -1,24 +1,20 @@
-<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>The Team</b></font><hr /><p><br><h3>Franco Baudino</h3><br>Grade : 12<br>Intended Major: Computer Eng or Biomedical Eng
+<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>The Team</b></font><hr /><p><br><b>Franco Baudino</b>
+<br>Grade : 12
+<br>Intended Major: Computer Eng or Biomedical Eng
 <br>First Experience Programming: Using Arduinos for school and personal projects.
 
 
 
 <br><b>Hannah Waxman</b>
-
 <br>Grade : 11
-
 <br>Intended Major: COmputer Science
-
 <br>First Experience Programming: AP COmputer Science
 
 
 
 <br><b>Gabriel Fernandes</b>
-
 <br>Grade : 12
-
 <br>Intended Major: Biomedical Eng
-
 <br>First Experience Programming:Coding in Minecraft
 
 <hr/></div>
@@ -46,6 +42,7 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|1/07/2016|Worked on GUI |3hrs|Hannah, Gabriel, Franco|Coded different pages of the GUI, looked up how to make custom buttons aswell, worked on website|
 |12/17/2015|Worked on fixing the bugs that have stumped us for an entire week |2.5 Hrs|Gabriel, Franco|We finally fixed the errorrr!!!!! super good work done today and discussed some more about the GUI, also made a note on possible features of the GUI|
 |12/15/2015|Bugs? |2hrs?|Hannah, Franco|What did we dooo |
 |12/10/2015|did we work ?? ||| |

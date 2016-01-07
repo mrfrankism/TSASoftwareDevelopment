@@ -13,17 +13,16 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import javax.swing.JDesktopPane;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI {
 
 	static JFrame frame;
 	static JTextArea textArea;
-	static JProgressBar progressBar;
-	private JButton btnNewButton;
-	private JMenuBar menuBar;
-	private JButton btnNewButton_1;
-	private JPopupMenu popupMenu;
-	private JLabel lblNewLabel;
 	/**
 	 * Create the application.
 	 */
@@ -40,45 +39,40 @@ public class GUI {
 		//frame.setSize(500,500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		JDesktopPane desktopPane_2 = new JDesktopPane();
+		frame.getContentPane().add(desktopPane_2, BorderLayout.NORTH);
+		
 		textArea = new JTextArea();
-		frame.getContentPane().add(textArea, BorderLayout.CENTER);
+		textArea.setBounds(0, 0, 734, 454);
+		desktopPane_2.add(textArea);
 		
-		progressBar = new JProgressBar();
-		progressBar.setMaximum(pop.size - 1);
-		progressBar.setMinimum(0);
-		frame.getContentPane().add(progressBar, BorderLayout.NORTH);
+		JDesktopPane desktopPane = new JDesktopPane();
+		frame.getContentPane().add(desktopPane, BorderLayout.EAST);
 		
-		btnNewButton = new JButton("New button");
-		frame.getContentPane().add(btnNewButton, BorderLayout.WEST);
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.BLUE);
+		panel.setBounds(-179, 0, 189, 324);
+		desktopPane.add(panel);
 		
-		popupMenu = new JPopupMenu();
-		addPopup(btnNewButton, popupMenu);
-		
-		lblNewLabel = new JLabel("New label");
-		popupMenu.add(lblNewLabel);
-		
-		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-		
-		btnNewButton_1 = new JButton("New button");
-		menuBar.add(btnNewButton_1);
+		JButton btnStart = new JButton("start");
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							EditWindow window = new EditWindow();
+							window.frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});
+		frame.getContentPane().add(btnStart, BorderLayout.SOUTH);
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
+		//probably use this to show an error messsage
 	}
 }

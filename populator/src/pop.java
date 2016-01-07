@@ -3,10 +3,6 @@ import java.awt.EventQueue;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Map;
-
-import javax.swing.JProgressBar;
-
 import java.sql.ResultSet;
 //import com.mysql.*;
 //import com.mysql.jdbc.PreparedStatement;
@@ -97,7 +93,7 @@ public class pop {
 			      preparedStmt.setString(9, pe[i]);
 			      preparedStmt.setString(10, language[i]);
 			      preparedStmt.execute();
-			      GUI.progressBar.setValue(i);
+			     
 			}
 			
 			query = "insert into Classes (class_Name, subject)"
