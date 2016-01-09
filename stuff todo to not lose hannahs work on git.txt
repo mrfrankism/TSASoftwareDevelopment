@@ -1,0 +1,24 @@
+things to do so that hannahs changes are not lost
+
+git stash
+to stash her changes so that we dont lose them
+
+git pull origin master
+to update her local repo
+
+git checkout hannah
+to swith to her branch
+
+git apply
+to apply the stashed changes to her branch
+
+git add
+add her changes to be commited
+
+git coomit -m
+to commit her changes
+
+git push origin hannah
+to push her changes to her branch then merge later on
+
+
