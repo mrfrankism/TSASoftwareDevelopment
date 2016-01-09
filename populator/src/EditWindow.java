@@ -29,6 +29,8 @@ import javax.swing.SpringLayout;
 import java.awt.Component;
 import javax.swing.Box;
 import java.awt.GridLayout;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
 
 public class EditWindow {
 
@@ -61,13 +63,20 @@ public class EditWindow {
 		tabbedPane.setBounds(12, 109, 501, 333);
 		frame.getContentPane().add(tabbedPane);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		tabbedPane.addTab("Students", null, panel, "Displays a list of Students currently enrolled in the school\r\n");
-		panel.setLayout(null);
+		JList studentList = new JList();
+		studentList.setModel(new AbstractListModel() {
+			String[] values = new String[] {"heelo", "world"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		tabbedPane.addTab("Students\r\n", null, studentList, "Displays a list of Students currently enrolled in the school\r\n");
 		
-		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Classes", null, panel_2, "Displays the Various classes and periods");
+		JList classesList = new JList();
+		tabbedPane.addTab("Classes", null, classesList, "Displays the Various classes and periods");
 		
 		BufferedImage buttonIcon = ImageIO.read(new File("C:\\Users\\franco\\Desktop\\button.png"));
 		
