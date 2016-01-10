@@ -64,6 +64,7 @@ public class EditWindow {
 		frame.getContentPane().add(tabbedPane);
 		
 		JList studentList = new JList();
+		studentList.setLayoutOrientation(JList.VERTICAL_WRAP);
 		studentList.setModel(new AbstractListModel() {
 			String[] values = new String[] {"heelo", "world"};
 			public int getSize() {
