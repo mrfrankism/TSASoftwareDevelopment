@@ -31,10 +31,14 @@ import javax.swing.Box;
 import java.awt.GridLayout;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.DebugGraphics;
 
 public class EditWindow {
 
 	JFrame frame;
+	private JTable studentTable;
 
 	/**
 	 * Launch the application.
@@ -54,36 +58,34 @@ public class EditWindow {
 	 */
 	private void initialize() throws IOException {
 		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
-		frame.setSize(new Dimension(752, 502));
+		frame.setSize(new Dimension(900, 702));
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); took this out so that closing the edit wondow doesnt close the program
 		frame.getContentPane().setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 109, 501, 333);
+		tabbedPane.setBounds(12, 109, 663, 545);
 		frame.getContentPane().add(tabbedPane);
 		
-		JList studentList = new JList();
-		studentList.setLayoutOrientation(JList.VERTICAL_WRAP);
-		studentList.setModel(new AbstractListModel() {
-			String[] values = new String[] {"heelo", "world"};
-			public int getSize() {
-				return values.length;
+		studentTable = new JTable();
+		studentTable.setDebugGraphicsOptions(DebugGraphics.BUFFERED_OPTION);
+		studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		studentTable.setShowVerticalLines(false);
+		studentTable.setModel(new DefaultTableModel(
+			mysqlHandler.getTableData(), //gets the student info from Mysql possible only parse 500 students at a time
+			new String[] {
+				"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
-		tabbedPane.addTab("Students\r\n", null, studentList, "Displays a list of Students currently enrolled in the school\r\n");
+		));
+		tabbedPane.addTab("Students\r\n", null, studentTable, "Displays a list of Students currently enrolled in the school\r\n");
 		
-		JList classesList = new JList();
-		tabbedPane.addTab("Classes", null, classesList, "Displays the Various classes and periods");
-		
-		BufferedImage buttonIcon = ImageIO.read(new File("C:\\Users\\franco\\Desktop\\button.png"));
+
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.DARK_GRAY);
-		panel_1.setBounds(527, 134, 195, 308);
+		panel_1.setBounds(687, 131, 195, 308);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
