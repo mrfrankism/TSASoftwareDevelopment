@@ -7,6 +7,7 @@ import javax.swing.JTabbedPane;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.beans.PropertyChangeEvent;
 import javax.swing.JLayeredPane;
 import javax.imageio.ImageIO;
@@ -34,62 +35,108 @@ import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DebugGraphics;
+import java.awt.Rectangle;
+import java.awt.BorderLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EditWindow {
 
 	JFrame frame;
 	private JTable studentTable;
+	private JTable requestTable;
+	private JTable schedulesTable;
 
 	/**
 	 * Launch the application.
-	 */
-
+	 */public static void NewWindow(){
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				EditWindow window = new EditWindow();
+				window.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
+	}
 	/**
 	 * Create the application.
+	 * @throws SQLException 
 	 * @throws IOException 
 	 */
-	public EditWindow() throws IOException {
-		initialize();
+	public EditWindow() throws SQLException  {
+		try {
+			initialize();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
+	 * @throws SQLException 
 	 */
-	private void initialize() throws IOException {
+	private void initialize() throws IOException, SQLException {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setSize(new Dimension(900, 702));
-		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); took this out so that closing the edit wondow doesnt close the program
-		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(12, 109, 663, 545);
-		frame.getContentPane().add(tabbedPane);
+		tabbedPane.setSize(new Dimension(100, 100));
+		frame.getContentPane().add(tabbedPane, BorderLayout.WEST);
 		
 		studentTable = new JTable();
 		studentTable.setDebugGraphicsOptions(DebugGraphics.BUFFERED_OPTION);
 		studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		studentTable.setShowVerticalLines(false);
 		studentTable.setModel(new DefaultTableModel(
-			mysqlHandler.getTableData(), //gets the student info from Mysql possible only parse 500 students at a time
+			mysqlHandler.getTableData("students"), //gets the student info from Mysql possible only parse 500 students at a time
 			new String[] {
 				"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 			}
 		));
 		tabbedPane.addTab("Students\r\n", null, studentTable, "Displays a list of Students currently enrolled in the school\r\n");
 		
+		
+		requestTable = new JTable();
+		tabbedPane.addTab("Requests", null, requestTable, "");
+		requestTable.setModel(new DefaultTableModel(
+				mysqlHandler.getTableData("requests"), //gets the student info from Mysql possible only parse 500 students at a time
+				new String[] {
+					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+				}
+			));
+		
+		schedulesTable = new JTable();
+		schedulesTable.setShowVerticalLines(false);
+		tabbedPane.addTab("Schedules", null, schedulesTable, null);
+		schedulesTable.setModel(new DefaultTableModel(
+				mysqlHandler.getTableData("classes"), //gets the student info from Mysql possible only parse 500 students at a time
+				new String[] {
+					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+				}
+			));
 
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(Color.DARK_GRAY);
-		panel_1.setBounds(687, 131, 195, 308);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JButton btnNew = new JButton("New Student");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// DefaultTableModel model = (DefaultTableModel) table.getModel(); 
+				// model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"}); 
+			}
+		});
 		btnNew.setToolTipText("Create a new student");
 		panel_1.add(btnNew);
 		

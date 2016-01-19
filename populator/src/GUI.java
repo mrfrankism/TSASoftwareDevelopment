@@ -2,21 +2,16 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;
-import javax.swing.JProgressBar;
 import java.awt.BorderLayout;
-import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
-import javax.swing.JMenuBar;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
 import javax.swing.JDesktopPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class GUI {
@@ -57,18 +52,11 @@ public class GUI {
 		JButton btnStart = new JButton("start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							EditWindow window = new EditWindow();
-							window.frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+			
+					EditWindow w = new EditWindow();
+					w.NewWindow();
 			}
-		});
+		});  
 		frame.getContentPane().add(btnStart, BorderLayout.SOUTH);
 	}
 

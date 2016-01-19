@@ -27,14 +27,14 @@ public class pop {
 			}
 		});
 		
-//		conn = DriverManager//build connection
-//		          .getConnection("jdbc:mysql://localhost:3306/school?"
-//		              + "user=root&password=mastacademy");
-	
 		conn = DriverManager//build connection
-		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
-		              + "user=hannah&password=111998pw");
-		
+		          .getConnection("jdbc:mysql://mastacademy.ddns.net:1029/school?"
+		              + "user=counselor&password=mastacademy");
+	
+//		conn = DriverManager//build connection
+//		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
+//		              + "user=hannah&password=111998pw");
+//		
 		
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
