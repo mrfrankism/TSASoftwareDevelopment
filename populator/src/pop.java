@@ -1,24 +1,62 @@
 import java.sql.DriverManager;
 import java.awt.EventQueue;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.ResultSet;
-//import com.mysql.*;
-//import com.mysql.jdbc.PreparedStatement;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class pop {
+	public static String IP;
+	public static String first;
+	public static String last;
+	
     public static int subOptions = 5;
     public static int numPeriods = 7;
 	public static Connection conn;
 	public static int size = 200;	//number of students total
 	
 	public static Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
+	private static BufferedReader bufferReader;
 	
-	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
+	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException {
+
 		
+		File f= new File("adminData.txt");
+	  if(f.exists()==true){
+		  System.out.print("file did exist");
+		  String fileName="adminData.txt";
+	      FileReader inputFile = new FileReader(fileName);
+	      bufferReader = new BufferedReader(inputFile);
+	      IP=bufferReader.readLine();
+	      //save IP address
+	      first=bufferReader.readLine();
+	      //save first name
+	      last=bufferReader.readLine();
+	      //save last name 
+	      
+	      EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						MainPage mp = new MainPage();
+						mp.frame.setVisible(true);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+	      
+		}
+		else{
+			 System.out.print("file did not exist");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					GUI window = new GUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -26,6 +64,8 @@ public class pop {
 				}
 			}
 		});
+		}
+
 		
 //		conn = DriverManager//build connection
 //		          .getConnection("jdbc:mysql://localhost:3306/school?"
@@ -106,8 +146,7 @@ public class pop {
 			      preparedStmt.execute();
 			}
 			}
-			GUI.textArea.append("Done adding to database");
-
+		
 			
 			int z = 0;
 			for ( int j = 0; j < numPeriods; j++){
@@ -128,8 +167,8 @@ public class pop {
 			
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);
-			finalSchedule f = new finalSchedule();
-			f.makeSchedules();
+			finalSchedule w = new finalSchedule();
+			w.makeSchedules();
 			
 	}
 	public static int getNumberOfStudents(String subject, String course){ //gets total students enrolled in a course
