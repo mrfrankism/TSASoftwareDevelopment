@@ -1,10 +1,7 @@
-
-import java.sql.ResultSet;
 public class periodGenerator {
 
 
 	public static int [][] periodChart2 = new int[pop.numPeriods*(pop.subOptions)][pop.numPeriods];
-	public static String[] testShit = new String[2000];
 	
 	public void scheduele( Courses [ ] c){	
 		
@@ -17,7 +14,7 @@ public class periodGenerator {
 	    	 for(int i = 0; i < c.length; i++){ //loops through the actual course names (provided by array from pop)
 	    		 if(c[i].getUnits() == j){ //checks to see if the amount of units of the class is the least amount(starts at 1, goes until maximum course with maximum amount of units is looped through), currently 2000
 	    			 for(int x = 0; x < 7; x++){ //goes through the 7 columns accounting for each period
-	    				 counter[x]  = (int)addColumns("pd" + (x+1)); //the value in the counter array is equal to the amount of the rest of the values(0 and 1) added together
+	    				 counter[x]  = (int)mysqlHandler.addColumns("pd" + (x+1)); //the value in the counter array is equal to the amount of the rest of the values(0 and 1) added together
 	    				 //System.out.println(counter[x]); //print the value of the total courses being filled in that period
 	    			 }
 	    			 
@@ -53,19 +50,16 @@ public class periodGenerator {
 	    		 }
 	    	 }
 	    	 
-	     for(String s:testShit) {
-	    	 System.out.println("SHIT:  "   + s);
-	     }
+	    
 	     
 	}catch(Exception e){ //catches errors
 		System.out.println(e);
-		System.out.println("THERES A FUCKING ERROR BITCH");//you already know it
+		System.out.println("Error in Period Generator");//you already know it
 	}
 	}
 	
 	public void writeToMysql(int rowNum, String n, int pd1, int pd2, int pd3, int pd4, int pd5, int pd6, int pd7){ //write the periods table to mysql
 		try{
-			
 			int [] p = {pd1, pd2 ,pd3,pd4,pd5,pd6,pd7};
 			 for(int f = 0; f < pop.numPeriods; f++){
 				 if( p[f]==0) {
@@ -97,22 +91,5 @@ public class periodGenerator {
 		
 	}
 	}
-	public static int addColumns(String period){
-		String query;
-		java.sql.PreparedStatement preparedStmt;
-		ResultSet rs1;
-
-		query = "SELECT  COUNT(" + period + ") FROM periods WHERE " + period + " = '1'"; //count amount of courses in a period where value is one (filled)
-		try {
-			preparedStmt = pop.conn.prepareStatement(query);
-			preparedStmt.execute(); //execute the statement
-			rs1 = preparedStmt.getResultSet(); //rs1 is the output from the query
-			rs1.absolute(1);  //gets result from the first row
-			int a= rs1.getInt(1); //gets the value of the first column's results added together
-			return a; //returns the total of the classes with "1" in that period
-		} catch (Exception e) { //catches an error
-			System.out.println(e);
-		}		
-	 return -1;	//returns -1 if there is an error
-	}
+	
 }

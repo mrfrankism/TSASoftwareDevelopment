@@ -28,7 +28,7 @@ public class pop {
 		});
 		
 		conn = DriverManager//build connection
-		          .getConnection("jdbc:mysql://mastacademy.ddns.net:1029/school?"
+		          .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
 		              + "user=counselor&password=mastacademy");
 	
 //		conn = DriverManager//build connection

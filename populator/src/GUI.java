@@ -1,5 +1,3 @@
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
@@ -11,7 +9,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class GUI {
@@ -52,9 +49,7 @@ public class GUI {
 		JButton btnStart = new JButton("start");
 		btnStart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			
-					EditWindow w = new EditWindow();
-					w.NewWindow();
+					EditWindow.NewWindow();
 			}
 		});  
 		frame.getContentPane().add(btnStart, BorderLayout.SOUTH);
