@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.BorderLayout;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
@@ -21,11 +22,24 @@ public class GUI {
 	public GUI() {
 		initialize();
 	}
-
+public static void newFrame(){
+	
+	EventQueue.invokeLater(new Runnable() {
+		public void run() {
+			try {
+				GUI gui = new GUI();
+				gui.frame.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	});
+	
+}
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public static void initialize() {
 		frame = new JFrame();
 		frame.setSize(new Dimension(752, 502));
 		//frame.setSize(500,500);

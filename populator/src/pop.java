@@ -16,15 +16,7 @@ public class pop {
 	
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EditWindow.NewWindow();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		GUI.newFrame();
 		
 		conn = DriverManager//build connection
 		          .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
@@ -123,12 +115,11 @@ public class pop {
 			for(int i=0; i< numPeriods*(subOptions); i++){	//get count for each subject and their levels (20 total)
 				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getClassName()));
 			}
-			
-			
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);
 			finalSchedule f = new finalSchedule();
 			f.makeSchedules();
+			System.out.println("DONE!!!");
 			
 	}
 	public static int getNumberOfStudents(String subject, String course){ //gets total students enrolled in a course

@@ -118,7 +118,7 @@ public class EditWindow {
 		schedulesTable.setShowVerticalLines(false);
 		tabbedPane.addTab("Schedules", null, schedulesTable, null);
 		schedulesTable.setModel(new DefaultTableModel(
-				mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
+				mysqlHandler.getTableData("schedules", 20), //gets the student info from Mysql possible only parse 500 students at a time
 				new String[] {
 					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 				}

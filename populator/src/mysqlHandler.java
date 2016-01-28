@@ -6,6 +6,7 @@ public class mysqlHandler {
 	static int columnsInLogin = 13;
 	static int columnsInSchedules = 10;
 	static int columnsInStudents = 10;
+	
 	public static Object[][] getTableData(String table, int rows) throws SQLException{
 		int tableLength = 0;
 		
@@ -13,52 +14,60 @@ public class mysqlHandler {
 
 String query = null;
 PreparedStatement preparedStmt;
-ResultSet rs1 = null;
+ResultSet rs1 ;
 Object [][] data;
 int columns = 0;
 
 
+System.out.println(countStudents("name", "students"));
+
 
 	if(table.equalsIgnoreCase("requests")){
-			query = "SELECT * FROM login";
-			columns = columnsInLogin;
+		query = "SELECT * FROM schedules";//CHANGE THIS LATER 
+		columns = columnsInStudents -1;
+		rows = countStudents("name", "students")-1 ;
 		}else if(table.equalsIgnoreCase("schedules")){
-			query = "SELECT * FROM schedules"; 
-			columns = columnsInStudents;
-			}
+			query = "SELECT * FROM schedules";//CHANGE THIS LATER 
+			columns = columnsInStudents-1;
+			rows = countStudents("name", "students") -1;
+			}else if(table.equalsIgnoreCase("students")){
+				query = "SELECT * FROM schedules";//CHANGE THIS LATER 
+				columns = columnsInStudents-1;
+				rows = countStudents("name", "students") -1 ;
+				}
 		
 	/*
 	 * gets data from the specific mysql database and runs through it saving all the values to a table
 	 */
 	
+	
+	data = new Object [tableLength][columns];
+	
 		try {
+			System.out.println("hello");
 			preparedStmt = pop.conn.prepareStatement(query);
+			System.out.println("hello2");
 			preparedStmt.execute(); //execute the statement
 			rs1 = preparedStmt.getResultSet(); //rs1 is the output from the query
-			rs1.last();
-			tableLength = rs1.getRow();
-			rs1.first();
-			data = new Object [tableLength][columns];
-			System.out.println("HERE");
+		
 		} catch (Exception e) { //catches an error
 			System.out.println("herererererere");
 			//debugging purposes tablelength is set to something
-			tableLength = 10;
 			System.out.println(e);
+			rs1 = null;
 		}		
 		
-		tableLength = 10;
-		data = new Object [columns][tableLength];
+		data = new Object[rows][columns];
 		
 		//is data null at this point?
-		for(int y = 0; y <= data.length; y++){//for loop to loop through the rows of the result set
-			for(int x = 0; x <= data[y].length; x++){
-				//data[y][x]  = 1;
-				data[y][x] = rs1.getObject(x);
-				if(rs1.wasNull()) break;
+		for(int y = 0; y <= rows; y++){//for loop to loop through the rows of the result set
+			for(int x = 0; x <= columns; x++){
+				data[y][x]  = new Integer(1);
+				//data[y][x] = rs1.getObject(x);
+			//       	if(rs1.wasNull()) break;
 			}
-			if(rs1.isLast()) break;
-			else rs1.next();
+			//if(rs1.isLast()) break;
+			//else rs1.next();
 		}
 		
 		
@@ -117,8 +126,20 @@ int columns = 0;
 		}
 	}
 	
-	public static void countStudents(String param){
-		
+	public static int countStudents(String param, String table){//counts the given amount of entries in a given column of a given field
+		PreparedStatement preparedStmt;
+		ResultSet rs1;
+		try{
+			String query = "select count("+ param + ") from " + table; 
+			preparedStmt = pop.conn.prepareStatement(query);
+			preparedStmt.execute(); 
+			rs1 = preparedStmt.getResultSet();
+			rs1.absolute(1);
+			return rs1.getInt(1);
+		}catch(Exception e) {
+			System.out.println("Error in counting students for edit studdents table");
+			return 0;
+		}
 		
 	}
 	
