@@ -3,28 +3,29 @@ import java.util.ArrayList;
 
 //This class handles all the mysql server requests 
 public class mysqlHandler {
-
-	public static Object[][] getTableData(String r) throws SQLException{
+	static int columnsInLogin = 13;
+	static int columnsInSchedules = 10;
+	static int columnsInStudents = 10;
+	public static Object[][] getTableData(String table, int rows) throws SQLException{
 		int tableLength = 0;
-		int tableWidth = 1;
 		
 //String[] firstRow = {"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"};
 
-String query;
+String query = null;
 PreparedStatement preparedStmt;
 ResultSet rs1 = null;
+Object [][] data;
+int columns = 0;
 
-query = "SELECT * FROM periods"; //count amount of courses in a period where value is one (filled)
-Object[][] data = new Object [9][500];
 
 
-	if(r.equalsIgnoreCase("requests")){
-			query = "SELECT * FROM students"; 
-		}else if(r.equalsIgnoreCase("periods")){
-			query = "SELECT * FROM periods"; 
-		}else if(r.equalsIgnoreCase("schedules")){
+	if(table.equalsIgnoreCase("requests")){
+			query = "SELECT * FROM login";
+			columns = columnsInLogin;
+		}else if(table.equalsIgnoreCase("schedules")){
 			query = "SELECT * FROM schedules"; 
-		}
+			columns = columnsInStudents;
+			}
 		
 	/*
 	 * gets data from the specific mysql database and runs through it saving all the values to a table
@@ -36,28 +37,28 @@ Object[][] data = new Object [9][500];
 			rs1 = preparedStmt.getResultSet(); //rs1 is the output from the query
 			rs1.last();
 			tableLength = rs1.getRow();
+			rs1.first();
+			data = new Object [tableLength][columns];
+			System.out.println("HERE");
 		} catch (Exception e) { //catches an error
+			System.out.println("herererererere");
+			//debugging purposes tablelength is set to something
+			tableLength = 10;
 			System.out.println(e);
 		}		
 		
+		tableLength = 10;
+		data = new Object [columns][tableLength];
 		
-		ArrayList<ArrayList<Object>> result = new ArrayList<ArrayList<Object>>();
-		
-		
-		
-		for(int y = 1; y <= tableLength; y++){//for loop to loop through the rows of the result set
-	
-			//		result.add(new ArrayList<Object>());
-			
-			for(int x = 1; x <= tableWidth; x++){
-				data[y-1][x-1] = rs1.getObject(x);
+		//is data null at this point?
+		for(int y = 0; y <= data.length; y++){//for loop to loop through the rows of the result set
+			for(int x = 0; x <= data[y].length; x++){
+				//data[y][x]  = 1;
+				data[y][x] = rs1.getObject(x);
 				if(rs1.wasNull()) break;
-				else tableWidth++;
 			}
-			
 			if(rs1.isLast()) break;
 			else rs1.next();
-			
 		}
 		
 		
@@ -87,7 +88,7 @@ Object[][] data = new Object [9][500];
 	}
 	}
 	
-	public static int addColumns(String period){
+	public static int sumOfColumn(String period){
 		String query;
 		java.sql.PreparedStatement preparedStmt;
 		ResultSet rs1;
@@ -106,7 +107,20 @@ Object[][] data = new Object [9][500];
 	 return -1;	//returns -1 if there is an error
 	}
 	
+	public static void setLogin(String param, String value) {
+		try{
+			String query = "insert into login (" + param + ") values (" + value + ")"; 
+			java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);
+			preparedStmt.execute(); 
+		}catch(Exception e) {
+			
+		}
+	}
 	
+	public static void countStudents(String param){
+		
+		
+	}
 	
 	}
 

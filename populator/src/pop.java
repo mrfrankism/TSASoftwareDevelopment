@@ -19,8 +19,7 @@ public class pop {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUI window = new GUI();
-					window.frame.setVisible(true);
+					EditWindow.NewWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

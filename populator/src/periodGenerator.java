@@ -14,7 +14,7 @@ public class periodGenerator {
 	    	 for(int i = 0; i < c.length; i++){ //loops through the actual course names (provided by array from pop)
 	    		 if(c[i].getUnits() == j){ //checks to see if the amount of units of the class is the least amount(starts at 1, goes until maximum course with maximum amount of units is looped through), currently 2000
 	    			 for(int x = 0; x < 7; x++){ //goes through the 7 columns accounting for each period
-	    				 counter[x]  = (int)mysqlHandler.addColumns("pd" + (x+1)); //the value in the counter array is equal to the amount of the rest of the values(0 and 1) added together
+	    				 counter[x]  = (int)mysqlHandler.sumOfColumn("pd" + (x+1)); //the value in the counter array is equal to the amount of the rest of the values(0 and 1) added together
 	    				 //System.out.println(counter[x]); //print the value of the total courses being filled in that period
 	    			 }
 	    			 

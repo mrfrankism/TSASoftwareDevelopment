@@ -97,7 +97,7 @@ public class EditWindow {
 		studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		studentTable.setShowVerticalLines(false);
 		studentTable.setModel(new DefaultTableModel(
-			mysqlHandler.getTableData("students"), //gets the student info from Mysql possible only parse 500 students at a time
+			mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
 			new String[] {
 				"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 			}
@@ -108,7 +108,7 @@ public class EditWindow {
 		requestTable = new JTable();
 		tabbedPane.addTab("Requests", null, requestTable, "");
 		requestTable.setModel(new DefaultTableModel(
-				mysqlHandler.getTableData("requests"), //gets the student info from Mysql possible only parse 500 students at a time
+				mysqlHandler.getTableData("requests", 20), //gets the student info from Mysql possible only parse 500 students at a time
 				new String[] {
 					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 				}
@@ -118,7 +118,7 @@ public class EditWindow {
 		schedulesTable.setShowVerticalLines(false);
 		tabbedPane.addTab("Schedules", null, schedulesTable, null);
 		schedulesTable.setModel(new DefaultTableModel(
-				mysqlHandler.getTableData("classes"), //gets the student info from Mysql possible only parse 500 students at a time
+				mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
 				new String[] {
 					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 				}
