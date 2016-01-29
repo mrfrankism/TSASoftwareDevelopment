@@ -133,22 +133,31 @@ public class EditWindow {
 		JButton btnNew = new JButton("New Student");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				// DefaultTableModel model = (DefaultTableModel) table.getModel(); 
-				// model.addRow(new Object[]{"Column 1", "Column 2", "Column 3"}); 
+				//opens up another GUI Page to add a student 
 			}
 		});
 		btnNew.setToolTipText("Create a new student");
 		panel_1.add(btnNew);
 		
 		JButton btnNewButton_1 = new JButton("Edit Student");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//opens a page to edit the classes a student has
+			}
+		});
 		btnNewButton_1.setToolTipText("Edit the student that is currently selected");
 		panel_1.add(btnNewButton_1);
 		
 		JButton btnDeleteStudent = new JButton("Delete Student");
+		btnDeleteStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//opens a pop up to confirm the deletetion of a student
+			}
+		});
 		btnDeleteStudent.setToolTipText("Delete the student that is currently selected\r\n");
 		panel_1.add(btnDeleteStudent);
 		
-		JButton btnInfo = new JButton("Info...");
+		JButton btnInfo = new JButton("Info..."); //IS THIS INFO Button really needed?
 		btnInfo.setToolTipText("Displays more in depth inofrmation on the currently selected student");
 		panel_1.add(btnInfo);
 	}
