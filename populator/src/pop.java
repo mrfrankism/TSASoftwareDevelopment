@@ -17,7 +17,6 @@ public class pop {
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
 		GUI.newFrame();
-		
 		conn = DriverManager//build connection
 		          .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
 		              + "user=counselor&password=mastacademy");

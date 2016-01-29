@@ -8,7 +8,6 @@ public class mysqlHandler {
 	static int columnsInStudents = 10;
 	
 	public static Object[][] getTableData(String table, int rows) throws SQLException{
-		int tableLength = 0;
 		
 //String[] firstRow = {"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"};
 
@@ -23,32 +22,37 @@ System.out.println(countStudents("name", "students"));
 
 
 	if(table.equalsIgnoreCase("requests")){
-		query = "SELECT * FROM schedules";//CHANGE THIS LATER 
-		columns = columnsInStudents -1;
-		rows = countStudents("name", "students")-1 ;
+		query = "SELECT * FROM login";//CHANGE THIS LATER 
+		columns = columnsInLogin;
+		rows = countStudents("name", "login");
 		}else if(table.equalsIgnoreCase("schedules")){
 			query = "SELECT * FROM schedules";//CHANGE THIS LATER 
-			columns = columnsInStudents-1;
-			rows = countStudents("name", "students") -1;
+			columns = columnsInSchedules;
+			rows = countStudents("name", "schedules") ;
 			}else if(table.equalsIgnoreCase("students")){
-				query = "SELECT * FROM schedules";//CHANGE THIS LATER 
-				columns = columnsInStudents-1;
-				rows = countStudents("name", "students") -1 ;
+				query = "SELECT * FROM students";//CHANGE THIS LATER 
+				columns = columnsInStudents;
+				rows = countStudents("name", "students");
 				}
 		
 	/*
 	 * gets data from the specific mysql database and runs through it saving all the values to a table
 	 */
 	
+	if(rows == 0) return data = new Object[0][0]; //if rows is bigger than 0, meaning there is data to show in the table then get it else return an empty array
+	else {
+		data = new Object [rows][columns];
 	
-	data = new Object [tableLength][columns];
 	
+	
+	//gets the various tables from mysql
 		try {
 			System.out.println("hello");
 			preparedStmt = pop.conn.prepareStatement(query);
 			System.out.println("hello2");
 			preparedStmt.execute(); //execute the statement
 			rs1 = preparedStmt.getResultSet(); //rs1 is the output from the query
+			rs1.absolute(1);
 		
 		} catch (Exception e) { //catches an error
 			System.out.println("herererererere");
@@ -57,22 +61,21 @@ System.out.println(countStudents("name", "students"));
 			rs1 = null;
 		}		
 		
-		data = new Object[rows][columns];
-		
-		//is data null at this point?
-		for(int y = 0; y <= rows; y++){//for loop to loop through the rows of the result set
-			for(int x = 0; x <= columns; x++){
-				data[y][x]  = new Integer(1);
-				//data[y][x] = rs1.getObject(x);
+		for(int y = 0; y < rows; y++){//for loop to loop through the rows of the result set
+			for(int x = 0; x < columns; x++){
+				//data[y][x]  = new Integer(1);
+				
+				data[y][x] = rs1.getObject(x+1);
+				
 			//       	if(rs1.wasNull()) break;
 			}
-			//if(rs1.isLast()) break;
-			//else rs1.next();
+			if(rs1.isLast()) break;
+			else rs1.next();
 		}
 		
 		
 		return data;
-		
+	}
 		}
 	
 	public static void writeClassesToMysql(int id, String name, int g, String [] c){ //write the periods table to mysql
@@ -137,7 +140,7 @@ System.out.println(countStudents("name", "students"));
 			rs1.absolute(1);
 			return rs1.getInt(1);
 		}catch(Exception e) {
-			System.out.println("Error in counting students for edit studdents table");
+			System.out.println("Error in counting " +param + " from table " + table);
 			return 0;
 		}
 		
