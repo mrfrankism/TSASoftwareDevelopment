@@ -5,10 +5,8 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 public class pop {
 	public static String IP;
@@ -21,6 +19,8 @@ public class pop {
 	public static int size = 200;	//number of students total
 	
 	public static Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
+
+	
 	private static BufferedReader bufferReader;
 	
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException, IOException {
@@ -44,6 +44,8 @@ public class pop {
 					try {
 						MainPage mp = new MainPage();
 						mp.frame.setVisible(true);
+						//testing.main(null);
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -57,8 +59,7 @@ public class pop {
 			public void run() {
 				try {
 					
-					GUI window = new GUI();
-					window.frame.setVisible(true);
+					GUI.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -67,19 +68,20 @@ public class pop {
 		}
 
 		
-//		conn = DriverManager//build connection
-//		          .getConnection("jdbc:mysql://localhost:3306/school?"
-//		              + "user=root&password=mastacademy");
-	
 		conn = DriverManager//build connection
-		          .getConnection("jdbc:mysql://10.144.81.21:3307/school?"
-		              + "user=hannah&password=111998pw");
+		        .getConnection("jdbc:mysql://10.144.85.198:3307/school?"
+		            + "user=hannah&password=111998pw");
+	
+	  
+	  //conn = DriverManager//build connection
+		//          .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
+		       //      + "user=counselor&password=mastacademy");
+		
+		System.out.println("We made it");
 		
 		
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
-	      
-		
 	    
 	    String[][] subjectss = new String[][]{
 	    	  { "math", "Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"},
@@ -102,9 +104,11 @@ public class pop {
 		String[] pe = new String[size];
 		String[] language = new String[size];
 		
+
 		for(int i=0; i<size; i++)	{	//loops through arrays to create students
 			ID[i]=i;
 			grade[i]=(9+(int)(Math.random()*4));	//randomizes grades 9-12
+			
 			
 	
 			math[i] = subjectss[0][(int)(1+Math.random()*(subOptions))];
@@ -136,6 +140,7 @@ public class pop {
 			     
 			}
 			
+			
 			query = "insert into Classes (class_Name, subject)"
 			        + " values (?, ?)";
 			preparedStmt = conn.prepareStatement(query);
@@ -156,14 +161,15 @@ public class pop {
 				}
 			}
 							
-		
-			
 			
 			
 			for(int i=0; i< numPeriods*(subOptions); i++){	//get count for each subject and their levels (20 total)
 				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getClassName()));
 			}
 			
+			// System.out.println(getNumberOfStudents("math", "Calc Hrs"));
+			 //System.out.println(pop.getNumberOfStudents("math", "Calc Hrs"));
+			 testing.tester();
 			
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);

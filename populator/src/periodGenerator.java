@@ -54,7 +54,7 @@ public class periodGenerator {
 	    	 }
 	    	 
 	     for(String s:testShit) {
-	    	 System.out.println("SHIT:  "   + s);
+	    	 //System.out.println("SHIT:  "   + s);
 	     }
 	     
 	}catch(Exception e){ //catches errors

@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
-import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
@@ -95,8 +94,13 @@ public class GUI {
 		frame.getContentPane().add(loginButton);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			   MainPage nw= new MainPage();
-			   nw.NewScreen();
+			   try {
+				//testing.main(null);
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+			   MainPage.NewScreen();
 			   GUI.frame.dispose();
 			   
 			   
