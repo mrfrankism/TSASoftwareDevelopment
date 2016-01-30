@@ -42,10 +42,18 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
-| Date | Task | Time Spent | Team Members Responsible | Description |
-| Date | Task | Time Spent | Team Members Responsible | Description |
-| Date | Task | Time Spent | Team Members Responsible | Description |
-| Date | Task | Time Spent | Team Members Responsible | Description |
+|2/23/2016| Task | 2.5Hrs | Hannah, Gabriel, Franco | Description |
+|2/18/2016| Task | 3Hrs | Hannah, Gabriel, Franco | Description |
+|2/11/2016| Task | 3Hrs | Hannah, Gabriel, Franco | Description |
+|2/09/2016| Task | 3.5Hrs | THannah, Gabriel, Franco| Description |
+|2/04/2016| Task | 3Hrs | Hannah, Gabriel, Franco | Description |
+|2/02/2016| Task | 2.5Hrs |Hannah, Gabriel, Franco | Description |
+|1/30/2016| Hannah worked on making refresh page, Franco finishing editing page of the GUI | 2.5Hrs |Hannah, Franco | We worked at Hannah's house |
+|1/28/2016| Gabriel continues making website, Franco started connecting the mysql tables to the GUI, Hannah started making graphs to pull data from students enrolled in classes | 3Hrs | Hannah, Gabriel, Franco | We had to move to a new workspace because our school didn't allow us to work in the cafeteria anymore |
+|1/26/2016| Gabriel continued GUI, Franco made tabs for tables to appear, Hannah wrote text file saving information from login screen | 3Hrs | Hannah, Gabriel, Franco| Everyone worked seperatly but collaborated on ideas |
+|1/21/2016| Hannah and Franco began using windowbuilder, gabriel worked on website | 3.5Hrs | Hannah, Gabriel, Franco | creating the GUI was not as compllicated as previous code |
+|1/19/2016| All work on details for our paticular tasks | 3Hrs | Hannah, Gabriel, Franco |decided seperatly how our own pages/ website would turn out |
+|1/12/2016| Set up sketch on how GUI would look, assign tasks | 4Hrs | Hannah, Gabriel, Franco | Everyone volunteered for goals based on stengths and weaknesses |
 |1/07/2016|Worked on GUI |3hrs|Hannah, Gabriel, Franco|Coded different pages of the GUI, looked up how to make custom buttons aswell, worked on website|
 |12/17/2015|Worked on fixing the bugs that have stumped us for an entire week |2.5 Hrs|Gabriel, Franco|We finally fixed the errorrr!!!!! super good work done today and discussed some more about the GUI, also made a note on possible features of the GUI|
 |12/15/2015|Stumped on bugs |2hrs|Hannah, Franco|seemed to accomplish nothing |
