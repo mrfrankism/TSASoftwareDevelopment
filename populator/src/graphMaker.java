@@ -12,9 +12,9 @@ import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
 
 
-public class testing
+public class graphMaker
 {
-   public static void tester() throws IOException
+   public static void getGraphs() throws IOException
    {
 	   
 	   
@@ -44,7 +44,7 @@ public class testing
 	    	      final PiePlot plot = (PiePlot) pieChartObject.getPlot();
 	    	      plot.setLabelFont(new Font("Lucida Grande", Font.PLAIN, 12));
 	    	      PieSectionLabelGenerator generator = new StandardPieSectionLabelGenerator( 
-	    	    		  "{0} ({1})", new DecimalFormat("0"), new DecimalFormat("0%")); 
+	    	    		  "{0} ({1})", new DecimalFormat("0"), new DecimalFormat("0")); 
 	    	    		  plot.setLabelGenerator(generator); 
 	    	      
 	    	      int width = 300; /* Width of the image */

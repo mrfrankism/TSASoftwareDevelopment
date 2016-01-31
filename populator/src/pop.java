@@ -42,9 +42,8 @@ public class pop {
 	      EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						MainPage mp = new MainPage();
+						homePage mp = new homePage();
 						mp.frame.setVisible(true);
-						//testing.main(null);
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -54,12 +53,11 @@ public class pop {
 	      
 		}
 		else{
-			 System.out.print("file did not exist");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					
-					GUI.frame.setVisible(true);
+					loginPage.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,15 +67,9 @@ public class pop {
 
 		
 		conn = DriverManager//build connection
-		        .getConnection("jdbc:mysql://10.144.85.198:3307/school?"
-		            + "user=hannah&password=111998pw");
+		        .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
+		            + "user=counselor&password=mastacademy");
 	
-	  
-	  //conn = DriverManager//build connection
-		//          .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
-		       //      + "user=counselor&password=mastacademy");
-		
-		System.out.println("We made it");
 		
 		
 		Class.forName("com.mysql.jdbc.Driver");
@@ -167,9 +159,7 @@ public class pop {
 				classes[i].setUnits(getNumberOfStudents(classes[i].getSubject(), classes[i].getClassName()));
 			}
 			
-			// System.out.println(getNumberOfStudents("math", "Calc Hrs"));
-			 //System.out.println(pop.getNumberOfStudents("math", "Calc Hrs"));
-			 testing.tester();
+				graphMaker.getGraphs();
 			
 			periodGenerator pg = new periodGenerator();
 			pg.scheduele(classes);

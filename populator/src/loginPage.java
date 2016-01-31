@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class GUI {
+public class loginPage {
 
 	public static String IP;
 	public static String first;
@@ -28,7 +28,7 @@ public class GUI {
 	/**
 	 * Create the application.
 	 */
-	public GUI() {
+	public loginPage() {
 
 		try {
 			initialize();
@@ -47,7 +47,6 @@ public class GUI {
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setSize(new Dimension(752, 502));
-		//frame.setSize(500,500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -94,14 +93,8 @@ public class GUI {
 		frame.getContentPane().add(loginButton);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			   try {
-				//testing.main(null);
-			} catch (Exception e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
-			}
-			   MainPage.NewScreen();
-			   GUI.frame.dispose();
+			   homePage.NewScreen();
+			   loginPage.frame.dispose();
 			   
 			   
 				IP=IPText.getText();
@@ -115,9 +108,9 @@ public class GUI {
 			    PrintWriter printWriter;
 					try {
 						printWriter = new PrintWriter ("adminData.txt");
-						printWriter.println (GUI.IP);
-					    printWriter.println (GUI.first);
-					    printWriter.println (GUI.last);
+						printWriter.println (loginPage.IP);
+					    printWriter.println (loginPage.first);
+					    printWriter.println (loginPage.last);
 					    printWriter.flush();
 					    printWriter.close ();  
 					} catch (FileNotFoundException e1) {

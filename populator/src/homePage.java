@@ -3,20 +3,21 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import org.omg.CORBA.portable.OutputStream;
-
 import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.ImageIcon;
-import java.util.*;
 
 
-public class MainPage {
+public class homePage {
 
 	JFrame frame;
 
@@ -27,7 +28,7 @@ public class MainPage {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MainPage window = new MainPage();
+					homePage window = new homePage();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,7 +40,7 @@ public class MainPage {
 	/**
 	 * Create the application.
 	 */
-	public MainPage() {
+	public homePage() {
 		initialize();
 	}
 
@@ -58,48 +59,78 @@ public class MainPage {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Server");
-		lblNewLabel_1.setBounds(395, 110, 75, 40);
+		lblNewLabel_1.setBounds(395, 90, 75, 40);
 		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Start");
-		btnNewButton.setBounds(380, 140, 75, 40);
+		btnNewButton.setBounds(380, 120, 75, 40);
 		frame.getContentPane().add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Socket client = new Socket("localhost", 80);
 				
-				OutputStream out = client.getOutputStream();
-				
-				out.write("serverStatus:on".getBytes());
-				out.flush();
-				
-				out.close();
-				client.close();
+				try {
+					Socket client = new Socket("mastacademy.ddns.net", 80);
+					
+					OutputStream out = client.getOutputStream();
+					
+					out.write("serverStatus:on".getBytes());
+					out.flush();
+					
+					out.close();
+					client.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			});
 		
 		JButton btnNewButton_1 = new JButton("Stop");
-		btnNewButton_1.setBounds(380, 180, 75, 40);
+		btnNewButton_1.setBounds(380, 160, 75, 40);
 		frame.getContentPane().add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Socket client = new Socket("localhost", 80);
-				
-				OutputStream out = client.getOutputStream();
-				
-				out.write("serverStatus:off".getBytes());
-				out.flush();
-				
-				out.close();
-				client.close();
+				try {
+					Socket client = new Socket("mastacademy.ddns.net", 80);
+					
+					OutputStream out = client.getOutputStream();
+					
+					out.write("serverStatus:off".getBytes());
+					out.flush();
+					
+					out.close();
+					client.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			});
 		
 		JButton btnEditStudents = new JButton("Edit Students");
 		btnEditStudents.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
-		btnEditStudents.setBounds(370, 280, 95, 40);
+		btnEditStudents.setBounds(370, 265, 95, 40);
 		frame.getContentPane().add(btnEditStudents);
+		
+
+		
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
+		btnRefresh.setBounds(370, 302, 95, 40);
+		frame.getContentPane().add(btnRefresh);
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					graphMaker.getGraphs();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				frame.update(frame.getGraphics());
+				System.out.println("refresh hoe");
+			}
+			});
 		
 		JLabel lblNewLabel_9 = new JLabel("Today is:");
 		lblNewLabel_9.setBounds(420, -20, 100, 100);
