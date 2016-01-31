@@ -9,8 +9,6 @@ public class mysqlHandler {
 	
 	public static Object[][] getTableData(String table, int rows) throws SQLException{
 		
-//String[] firstRow = {"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"};
-
 String query = null;
 PreparedStatement preparedStmt;
 ResultSet rs1 ;
@@ -47,9 +45,7 @@ System.out.println(countStudents("name", "students"));
 	
 	//gets the various tables from mysql
 		try {
-			System.out.println("hello");
 			preparedStmt = pop.conn.prepareStatement(query);
-			System.out.println("hello2");
 			preparedStmt.execute(); //execute the statement
 			rs1 = preparedStmt.getResultSet(); //rs1 is the output from the query
 			rs1.absolute(1);
@@ -99,7 +95,28 @@ System.out.println(countStudents("name", "students"));
 		System.out.println("SOMETHING WENT WRONG");
 	}
 	}
-	
+	public static void writeStudentToMysql(int id, String name, int g, String [] c){ //write the periods table to mysql
+		try{
+		String query = "insert into students (id, name, grade, math, science, social, language, pe, art, english)"
+		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+		java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql
+		      preparedStmt.setInt (1, id);
+		      preparedStmt.setString(2, name);
+		      preparedStmt.setInt(3, g);
+		      preparedStmt.setString(4, c[0]);
+		      preparedStmt.setString(5, c[1]);
+		      preparedStmt.setString(6, c[2]);
+		      preparedStmt.setString(7, c[3]);
+		      preparedStmt.setString(8, c[4]);
+		      preparedStmt.setString(9, c[5]);
+		      preparedStmt.setString(10, c[6]);
+		      preparedStmt.execute();
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem writing student to mysql student table");
+	}
+	}
 	public static int sumOfColumn(String period){
 		String query;
 		java.sql.PreparedStatement preparedStmt;
@@ -146,6 +163,70 @@ System.out.println(countStudents("name", "students"));
 		
 	}
 	
+	public static ArrayList<String> readClasses(){//reads all the possible classes from Mysql
+		PreparedStatement preparedStmt;
+		ResultSet rs1;
+		try{
+			String query = "select * from classes"; 
+			preparedStmt = pop.conn.prepareStatement(query);
+			preparedStmt.execute(); 
+			rs1 = preparedStmt.getResultSet();
+			rs1.absolute(1);
+			ArrayList<String> classes = new ArrayList<String>();//makes an array to hold all the classes we have
+			
+			while(rs1.isAfterLast() != true){
+				classes.add(rs1.getString(1));
+				rs1.next();
+			}
+			
+			return classes;
+		}catch(Exception e) {
+			System.out.println("Error in getting all the availble classes fom mysql");
+			return null;
+		}
+		
+	
+	}
+	public static ArrayList<String> readClasses(String subjectParam){//reads all the possible classes from Mysql
+		PreparedStatement preparedStmt;
+		ResultSet rs1;
+		try{
+			String query = "select * from classes where subject = \'" + subjectParam+"\'"; 
+			preparedStmt = pop.conn.prepareStatement(query);
+			preparedStmt.execute(); 
+			rs1 = preparedStmt.getResultSet();
+			rs1.absolute(1);
+			ArrayList<String> classes = new ArrayList<String>();//makes an array to hold all the classes we have
+			
+			while(rs1.isAfterLast() != true){
+				classes.add(rs1.getString(1));
+				rs1.next();
+			}
+			
+			return classes;
+		}catch(Exception e) {
+			System.out.println("Error in getting all the availble classes fom mysql for specific subject: " + subjectParam);
+			return null;
+		}
+		
+	
+	}
+	
+	public static void deleteStudent(int id){ //write the periods table to mysql
+		PreparedStatement preparedStmt;
+		ResultSet rs1;
+	
+		try{
+		String query = "delete from students where id = " + id;
+		preparedStmt = pop.conn.prepareStatement(query);
+		preparedStmt.execute(); 
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem deleting student with id: "+ id +" from students table");
+	}
+	
+	}
 	}
 
 

@@ -10,15 +10,16 @@ public class pop {
     public static int subOptions = 5;
     public static int numPeriods = 7;
 	public static Connection conn;
-	public static int size = 200;	//number of students total
+	public static int size = 10;	//number of students total
 	
 	public static Courses [] classes = new Courses[numPeriods * subOptions]; //makes array of 20 courses (5 per subject)
 	
 	public static void main(String args[]) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
 		
-		//GUI.newFrame();
-		EditStudent.newFrame(null);
-		conn = DriverManager//build connection
+		GUI.newFrame();
+	
+		//EditStudent.newFrame(null);
+		 conn = DriverManager//build connection
 		          .getConnection("jdbc:mysql://mastacademy.ddns.net:1234/school?"
 		              + "user=counselor&password=mastacademy");
 	
@@ -30,8 +31,8 @@ public class pop {
 		Class.forName("com.mysql.jdbc.Driver");
 	      // Setup the connection with the DB
 	      
-		
-	    
+	
+
 	    String[][] subjectss = new String[][]{
 	    	  { "math", "Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"},
 	    	  { "science", "Chemis", "Bio", "Physics", "Physical", "DE Geo" },
@@ -70,7 +71,7 @@ public class pop {
 			
 			String query = "insert into students (id, name, grade, math, science, social, english, art, pe, language)"
 			        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			java.sql.PreparedStatement preparedStmt = conn.prepareStatement(query);	//sends statement to mysql
+			java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql
 			
 			for(int i = 0; i < size; i++){	//loops through arrays to give (column, value) for each row
 			      preparedStmt.setInt (1, ID[i]);
@@ -120,8 +121,8 @@ public class pop {
 			finalSchedule f = new finalSchedule();
 			f.makeSchedules();
 			System.out.println("DONE!!!");
-			
 	}
+	
 	public static int getNumberOfStudents(String subject, String course){ //gets total students enrolled in a course
 		String query;
 		java.sql.PreparedStatement preparedStmt; //sets up a query
