@@ -42,10 +42,22 @@
 
 | Date | Task | Time Spent | Team Members Responsible | Description |
 |:----:|:----|:----:|:------------------------:|-----------:|
+|2/23/2016| Task | 2.5Hrs | Hannah, Gabriel, Franco | Description |
+|2/18/2016| Task | 3Hrs | Hannah, Gabriel, Franco | Description |
+|2/11/2016| Task | 3Hrs | Hannah, Gabriel, Franco | Description |
+|2/09/2016| Task | 3.5Hrs | THannah, Gabriel, Franco| Description |
+|2/04/2016| Task | 3Hrs | Hannah, Gabriel, Franco | Description |
+|2/02/2016| Task | 2.5Hrs |Hannah, Gabriel, Franco | Description |
+|1/30/2016| Hannah worked on making refresh page, Franco finishing editing page of the GUI | 2.5Hrs |Hannah, Franco | We worked at Hannah's house |
+|1/28/2016| Gabriel continues making website, Franco started connecting the mysql tables to the GUI, Hannah started making graphs to pull data from students enrolled in classes | 3Hrs | Hannah, Gabriel, Franco | We had to move to a new workspace because our school didn't allow us to work in the cafeteria anymore |
+|1/26/2016| Gabriel continued GUI, Franco made tabs for tables to appear, Hannah wrote text file saving information from login screen | 3Hrs | Hannah, Gabriel, Franco| Everyone worked seperatly but collaborated on ideas |
+|1/21/2016| Hannah and Franco began using windowbuilder, gabriel worked on website | 3.5Hrs | Hannah, Gabriel, Franco | creating the GUI was not as compllicated as previous code |
+|1/19/2016| All work on details for our paticular tasks | 3Hrs | Hannah, Gabriel, Franco |decided seperatly how our own pages/ website would turn out |
+|1/12/2016| Set up sketch on how GUI would look, assign tasks | 4Hrs | Hannah, Gabriel, Franco | Everyone volunteered for goals based on stengths and weaknesses |
 |1/07/2016|Worked on GUI |3hrs|Hannah, Gabriel, Franco|Coded different pages of the GUI, looked up how to make custom buttons aswell, worked on website|
 |12/17/2015|Worked on fixing the bugs that have stumped us for an entire week |2.5 Hrs|Gabriel, Franco|We finally fixed the errorrr!!!!! super good work done today and discussed some more about the GUI, also made a note on possible features of the GUI|
-|12/15/2015|Bugs? |2hrs?|Hannah, Franco|What did we dooo |
-|12/10/2015|did we work ?? ||| |
+|12/15/2015|Stumped on bugs |2hrs|Hannah, Franco|seemed to accomplish nothing |
+|12/10/2015|Got through some problems but one class has yet to run successfully |3 Hrs| Hannah, Franco, Gabriel| Extemely stressful day but we got through it together|
 |12/08/2015|Worked on solving bugs and overall issues |2.25Hrs|Hannah, Gabriel, Franco| Many bugs that we still dont understand are occuring|
 |12/02/2015|Added an array function and sorted the row values from least to greatest, started a server on a seperate windows computer and added ssh functionality to it|5.5Hrs|Hannah, Franco| A lot of work setting up the server|
 |12/01/2015|Started a new class to sort students into their actual classes, and added a new row the periods table|4hrs| Hannah, Franco| Worked a lot today|
@@ -62,10 +74,7 @@
 |10/8/2015 |Discussed sorting| 3Hrs|Hannah, Gabriel, Franco|Pending
 |10/6/2015 |Pending|Pending|Pending|Pending|
 |10/2/2015 |Worked on figuring out how to prioritize certain classes over others, and how many periods are needed for each class|45min|Hannah|Did this during a flight to pass the time|
-|10/1/2015 |Pending|Pending|Pending|Pending|
-| 9/29/2015|Pending|Pending|Pending|Pending|
-| 9/24/2015|Pending|Pending|Pending|Pending|
-| 9/22/2015|Pending|Pending|Pending|Pending|
-|testting| test| test|test|test|
-
-
+|10/1/2015 |Decide to make a master-schedule program, we believed we could make a better one than th one used in our school|Hannah, Franco, Gabriel|3.5Hrs|Everyone on full agreenment with new idea, talked to school administration who also thought it would be a helpful project|
+| 9/29/2015|Realize idea is not very realistic and that creating the program to document patients in hospitals is very complex and it would be hard to access medical files|3.5Hrs|Gabriel, Hannah, Franco|Began brainstorming other ideas on what to do and thought of possibly improving our school master-schedule|
+| 9/24/2015|Began to develop idea on creating a program for hospitals on documenting patients|3Hrs|Gabriel, Franco, and Hannah|Spent lots of time on the white board planning out how we would set up the program|
+| 9/22/2015|Had first meeting and talked about ideas of what to make|3Hrs|Gabriel, Hannah, Franco|Intresting team building activities|
