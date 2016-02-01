@@ -39,14 +39,18 @@ import java.awt.Rectangle;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class EditWindow {
 
-	JFrame frame;
+	static JFrame frame;
 	private JTable studentTable;
 	private JTable requestTable;
-	private JTable schedulesTable;
-
+	static JTable schedulesTable;
+	private JButton btnNew = null;
 	/**
 	 * Launch the application.
 	 */
@@ -94,7 +98,27 @@ public class EditWindow {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				if(tabbedPane.getSelectedIndex() == 0){//if the students tab is selecteddo this...
+					if(btnNew == null)	 btnNew = new JButton("New Student");
+					else{
+						btnNew.setText("New Student");
+						EditWindow.frame.update(EditWindow.frame.getGraphics());
+
+					}
+			}else if(tabbedPane.getSelectedIndex() == 1){//if the request tab is selecteddo this...
+				btnNew.setText("<html> Change tabs to <br> use functionality </html>"); //coded with html so that we can have a multiline button
+			
+				EditWindow.frame.update(EditWindow.frame.getGraphics());
+				}else if(tabbedPane.getSelectedIndex() == 2){//is the schedules tab is selected do this...
+					btnNew.setText("New Schedule");
+					EditWindow.frame.update(EditWindow.frame.getGraphics());
+				} 
+				 }
+		});
 		tabbedPane.setSize(new Dimension(100, 100));
+		
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		
 		studentTable = new JTable();
@@ -108,7 +132,7 @@ public class EditWindow {
 				"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 			}
 		));
-		JScrollPane jsp = new JScrollPane(studentTable);//makes the table scroll-able
+		JScrollPane jsp = new JScrollPane(studentTable);
 		tabbedPane.addTab("Students\r\n", null, jsp, "Displays a list of Students currently enrolled in the school\r\n");
 		
 		
@@ -140,31 +164,34 @@ public class EditWindow {
 		frame.getContentPane().add(panel_1, BorderLayout.EAST);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JButton btnNew = new JButton("New Student");
+		btnNew = new JButton("New Student");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens up another GUI Page to add a student
-				NewStudent.newFrame(null);
+				if(tabbedPane.getSelectedIndex() == 0) NewStudent.newFrame(null);
+				else ;
 			}
 		});
 		btnNew.setToolTipText("Create a new student");
 		panel_1.add(btnNew);
 		
-		JButton btnNewButton_1 = new JButton("Edit Scedules");
+		JButton btnNewButton_1 = new JButton("Edit Schedule");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens a page to edit the classes a student has
 				if(tabbedPane.getSelectedIndex() == 2 )	openEditStudentWindow();
-				else System.out.println("Not on the right tab for editing");
+				else popUpSchedules.newFrame(null);
 			}
 		});
-		btnNewButton_1.setToolTipText("Edit schedules,mainly used for schedules that are missing classes");
+		btnNewButton_1.setToolTipText("Edit a selected schedule,mainly used for schedules that are missing classes");
 		panel_1.add(btnNewButton_1);
 		
 		JButton btnDeleteStudent = new JButton("Delete Student");
 		btnDeleteStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens a pop up to confirm the delete-tion of a student
+				if(tabbedPane.getSelectedIndex() != 0) deleteButtonPopUp.newFrame(null);
+				else{
 				mysqlHandler.deleteStudent((int)studentTable.getValueAt(studentTable.getSelectedRow(), 0));	
 				//frame.getContentPane().update(frame.getContentPane().getGraphics());
 			//	studentTable.update(studentTable.getGraphics());
@@ -180,7 +207,7 @@ public class EditWindow {
 					e.printStackTrace();
 				}
 					frame.update(frame.getGraphics());
-						
+				}
 			}
 		});
 		btnDeleteStudent.setToolTipText("Delete the student that is currently selected\r\n");
@@ -202,12 +229,22 @@ public class EditWindow {
 		
 		
 		for(int x = 0; x < c-3; x++){
-			
 		classes[x] = schedulesTable.getValueAt(r, x+3);
-		System.out.println(classes[x]);
 		}
-		EditStudent.newFrame(classes);
-	
-		
+		//opens the frame to edit the currently selected student's schedule, also passes the title of the editing window
+		EditStudent.newFrame((String)schedulesTable.getValueAt(r, 1) + " - Id-" 
+		+schedulesTable.getValueAt(r,0).toString(), classes);
 	}
+	
+	public static int getSchedulesCurrentRowId(){
+		return (int)schedulesTable.getValueAt(schedulesTable.getSelectedRow(), 0);
+	}
+	public static String getName(){
+		return (String)schedulesTable.getValueAt(schedulesTable.getSelectedRow(), 1);
+	}
+	public static int getGrade(){
+		return (int)schedulesTable.getValueAt(schedulesTable.getSelectedRow(), 2);
+	}
+	
+	
 }

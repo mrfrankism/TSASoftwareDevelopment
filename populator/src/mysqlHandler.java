@@ -117,6 +117,29 @@ System.out.println(countStudents("name", "students"));
 		System.out.println("problem writing student to mysql student table");
 	}
 	}
+	
+	public static void changeSchedule(int id, String name, int grade, String [] classes){//used to edit schedules in the schedules table in mysql
+		try{
+		String query = "replace into schedules (id, name, grade, pd1, pd2, pd3, pd4, pd5, pd6, pd7)"
+		        + " values (?,?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+		java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql
+			  preparedStmt.setInt(1, id);
+			  preparedStmt.setString(2, name);
+			  preparedStmt.setInt(3, grade);
+		      preparedStmt.setString(4, classes[0]);
+		      preparedStmt.setString(5, classes[1]);
+		      preparedStmt.setString(6, classes[2]);
+		      preparedStmt.setString(7, classes[3]);
+		      preparedStmt.setString(8, classes[4]);
+		      preparedStmt.setString(9, classes[5]);
+		      preparedStmt.setString(10, classes[6]);
+		      preparedStmt.execute();
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem changing student's schedule when sending it to mysql schedule table");
+	}
+	}
 	public static int sumOfColumn(String period){
 		String query;
 		java.sql.PreparedStatement preparedStmt;
@@ -181,7 +204,7 @@ System.out.println(countStudents("name", "students"));
 			
 			return classes;
 		}catch(Exception e) {
-			System.out.println("Error in getting all the availble classes fom mysql");
+			System.out.println("Error in getting all the available classes fom mysql");
 			return null;
 		}
 		
