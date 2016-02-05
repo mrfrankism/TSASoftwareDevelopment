@@ -16,21 +16,21 @@ Object [][] data;
 int columns = 0;
 
 
-System.out.println(countStudents("name", "students"));
+//System.out.println(countStudents("name", "students"));
 
 
 	if(table.equalsIgnoreCase("requests")){
 		query = "SELECT * FROM login";//CHANGE THIS LATER 
 		columns = columnsInLogin;
-		rows = countStudents("name", "login");
+		rows = countStudents("id", "login");
 		}else if(table.equalsIgnoreCase("schedules")){
 			query = "SELECT * FROM schedules";//CHANGE THIS LATER 
 			columns = columnsInSchedules;
-			rows = countStudents("name", "schedules") ;
+			rows = countStudents("id", "schedules") ;
 			}else if(table.equalsIgnoreCase("students")){
 				query = "SELECT * FROM students";//CHANGE THIS LATER 
 				columns = columnsInStudents;
-				rows = countStudents("name", "students");
+				rows = countStudents("id", "students");
 				}
 		
 	/*
@@ -118,6 +118,29 @@ System.out.println(countStudents("name", "students"));
 	}
 	}
 	
+	public static void editStudentInMysql(int id, String name, int g, String [] c){ //edits the student i the mysql table
+		try{
+		String query = "replace into students (id, name, grade, math, science, social, language, pe, art, english)"
+		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+		java.sql.PreparedStatement preparedStmt = pop.conn.prepareStatement(query);	//sends statement to mysql
+		      preparedStmt.setInt (1, id);
+		      preparedStmt.setString(2, name);
+		      preparedStmt.setInt(3, g);
+		      preparedStmt.setString(4, c[0]);
+		      preparedStmt.setString(5, c[1]);
+		      preparedStmt.setString(6, c[2]);
+		      preparedStmt.setString(7, c[3]);
+		      preparedStmt.setString(8, c[4]);
+		      preparedStmt.setString(9, c[5]);
+		      preparedStmt.setString(10, c[6]);
+		      preparedStmt.execute();
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem writing student to mysql student table");
+	}
+	}
+	
 	public static void changeSchedule(int id, String name, int grade, String [] classes){//used to edit schedules in the schedules table in mysql
 		try{
 		String query = "replace into schedules (id, name, grade, pd1, pd2, pd3, pd4, pd5, pd6, pd7)"
@@ -180,6 +203,7 @@ System.out.println(countStudents("name", "students"));
 			rs1.absolute(1);
 			return rs1.getInt(1);
 		}catch(Exception e) {
+			e.printStackTrace();
 			System.out.println("Error in counting " +param + " from table " + table);
 			return 0;
 		}
@@ -249,6 +273,21 @@ System.out.println(countStudents("name", "students"));
 		System.out.println("problem deleting student with id: "+ id +" from students table");
 	}
 	
+	}
+	
+	public static void deleteFrom(String table){
+		PreparedStatement preparedStmt;
+		ResultSet rs1;
+	
+		try{
+		String query = "delete from "+table;
+		preparedStmt = pop.conn.prepareStatement(query);
+		preparedStmt.execute(); 
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem deleting from table: " +table);
+	}
 	}
 	}
 

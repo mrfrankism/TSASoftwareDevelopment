@@ -8,9 +8,9 @@ public class periodGenerator {
 		int p[] ={ 0, 0, 0, 0, 0,0,0};//set array for p values of 1 or 0 to represent if class in that period is filled or not
 		int counter[] = new int[7]; //make an empty array for each of the periods
 		int rowNumber = 0;
-		writeToMysql(rowNumber, "", p[0], p[1], p[2], p[3], p[4],p[5], p[6]);//must write first row of zeros for the rest to run
+		//writeToMysql(rowNumber, "", p[0], p[1], p[2], p[3], p[4],p[5], p[6]);//must write first row of zeros for the rest to run
 	try{
-	     for(int j = 1; j < 2000; j++){
+	     for(int j = 1; j < 200; j++){
 	    	 for(int i = 0; i < c.length; i++){ //loops through the actual course names (provided by array from pop)
 	    		 if(c[i].getUnits() == j){ //checks to see if the amount of units of the class is the least amount(starts at 1, goes until maximum course with maximum amount of units is looped through), currently 2000
 	    			 for(int x = 0; x < 7; x++){ //goes through the 7 columns accounting for each period
@@ -43,9 +43,10 @@ public class periodGenerator {
 	    				 
 	    				 				
 	    			 }
-	    			 rowNumber++;
+	    			 
 	    			 writeToMysql(rowNumber, c[i].getClassName(), p[0], p[1], p[2], p[3], p[4],p[5], p[6]); //append the row to mysql
-	    			 }
+	    			 rowNumber++;
+	    		 }
 	    		 
 	    		 }
 	    	 }
@@ -88,7 +89,8 @@ public class periodGenerator {
 		      preparedStmt.execute();
 		
 	}catch(Exception e){ 
-		
+		e.printStackTrace();
+		System.out.println("missed a class maybe?");
 	}
 	}
 	

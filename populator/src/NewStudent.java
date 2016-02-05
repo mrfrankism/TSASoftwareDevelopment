@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class NewStudent {
 
@@ -55,7 +58,7 @@ public class NewStudent {
 		frame.getContentPane().add(math);
 		
 		Choice science = new Choice();
-		science.setBounds(202, 42, 150, 22);
+		science.setBounds(188, 42, 166, 22);
 		putAllOptions(science, mysqlHandler.readClasses("science"));//puts all the options in this dropdown needed for all drop down menus
 		frame.getContentPane().add(science);
 		
@@ -65,62 +68,122 @@ public class NewStudent {
 		frame.getContentPane().add(language);
 		
 		Choice social = new Choice();
-		social.setBounds(416, 42, 150, 22);
+		social.setBounds(360, 42, 166, 22);
 		putAllOptions(social, mysqlHandler.readClasses("social"));
 		frame.getContentPane().add(social);
 		
 		Choice english = new Choice();
-		english.setBounds(603, 42, 150, 22);
+		english.setBounds(532, 42, 166, 22);
 		putAllOptions(english, mysqlHandler.readClasses("english"));
 		frame.getContentPane().add(english);
 		
 		Choice pe = new Choice();
-		pe.setBounds(416, 104, 150, 22);
+		pe.setBounds(360, 104, 166, 22);
 		putAllOptions(pe, mysqlHandler.readClasses("pe"));
 		frame.getContentPane().add(pe);
 		
 		Choice art = new Choice();
-		art.setBounds(202, 104, 150, 22);
+		art.setBounds(188, 104, 166, 22);
 		putAllOptions(art, mysqlHandler.readClasses("art"));
 		frame.getContentPane().add(art);
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				String chosenClasses[] = {
 						math.getSelectedItem(), science.getSelectedItem(),
 						social.getSelectedItem(), language.getSelectedItem(),
 						art.getSelectedItem(), pe.getSelectedItem(),
 						english.getSelectedItem()
 				};//set up the array with the new students classes
+				try{
 				mysqlHandler.writeStudentToMysql(Integer.parseInt(txtId.getText()), txtName.getText(), Integer.parseInt(txtGrade.getText()), chosenClasses);
-			NewStudent.frame.dispose(); //closes the new student window
+				EditWindow.refreshStudentsTab();//refresh the students tab to reflect the new student
+				NewStudent.frame.dispose(); //closes the new student window
+				}catch(Exception ex){
+				popUpSchedules.newFrame(null);
+			}
+				
 			}
 		});
 		btnSave.setBounds(0, 228, 782, 25);
 		frame.getContentPane().add(btnSave);
 		
 		txtId = new JTextField();
-		txtId.setText("Id");
-		txtId.setBounds(10, 167, 116, 22);
+		txtId.setBounds(10, 155, 172, 22);
 		frame.getContentPane().add(txtId);
 		txtId.setColumns(10);
 		
 		txtName = new JTextField();
-		txtName.setText("NAme");
-		txtName.setBounds(202, 167, 116, 22);
+		txtName.setBounds(188, 155, 166, 22);
 		frame.getContentPane().add(txtName);
 		txtName.setColumns(10);
 		
 		txtGrade = new JTextField();
-		txtGrade.setText("grade");
-		txtGrade.setBounds(418, 167, 116, 22);
+		txtGrade.setBounds(360, 155, 166, 22);
 		frame.getContentPane().add(txtGrade);
 		txtGrade.setColumns(10);
+		
+		JLabel lblPeriod = new JLabel("Math");
+		lblPeriod.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPeriod.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPeriod.setBounds(10, 13, 166, 22);
+		frame.getContentPane().add(lblPeriod);
+		
+		JLabel lblScience = new JLabel("Science");
+		lblScience.setHorizontalAlignment(SwingConstants.CENTER);
+		lblScience.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblScience.setBounds(188, 13, 166, 22);
+		frame.getContentPane().add(lblScience);
+		
+		JLabel lblSocialStudies = new JLabel("Social Studies");
+		lblSocialStudies.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSocialStudies.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblSocialStudies.setBounds(360, 13, 166, 22);
+		frame.getContentPane().add(lblSocialStudies);
+		
+		JLabel lblLanguage = new JLabel("English");
+		lblLanguage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLanguage.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblLanguage.setBounds(532, 13, 166, 22);
+		frame.getContentPane().add(lblLanguage);
+		
+		JLabel lblLanguage_1 = new JLabel("Language");
+		lblLanguage_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLanguage_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblLanguage_1.setBounds(10, 76, 172, 22);
+		frame.getContentPane().add(lblLanguage_1);
+		
+		JLabel lblArt = new JLabel("Art");
+		lblArt.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArt.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblArt.setBounds(188, 76, 166, 22);
+		frame.getContentPane().add(lblArt);
+		
+		JLabel lblPhysicalEd = new JLabel("Physical Ed.");
+		lblPhysicalEd.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPhysicalEd.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPhysicalEd.setBounds(360, 76, 166, 22);
+		frame.getContentPane().add(lblPhysicalEd);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setHorizontalAlignment(SwingConstants.CENTER);
+		lblId.setBounds(10, 132, 172, 22);
+		frame.getContentPane().add(lblId);
+		
+		JLabel lblName = new JLabel("Name");
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setBounds(188, 132, 172, 22);
+		frame.getContentPane().add(lblName);
+		
+		JLabel lblGrade = new JLabel("Grade");
+		lblGrade.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGrade.setBounds(354, 132, 172, 22);
+		frame.getContentPane().add(lblGrade);
 	}
 	
-	void putAllOptions(Choice c, ArrayList<String> s){
-		
+	void putAllOptions(Choice c, ArrayList<String> s){//puts all the class options into an ArrayList that thedrop menus access and present in the GUI
 		for(int x = 0; x < s.size(); x++){
 			c.add(s.get(x));
 		}

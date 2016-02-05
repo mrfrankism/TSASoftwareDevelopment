@@ -1,56 +1,33 @@
 import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.image.BufferedImage;
-
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.beans.PropertyChangeEvent;
-import javax.swing.JLayeredPane;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JToggleButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.Color;
-import net.miginfocom.swing.MigLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.SpringLayout;
-import java.awt.Component;
 import javax.swing.Box;
 import java.awt.GridLayout;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DebugGraphics;
-import java.awt.Rectangle;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 
 public class EditWindow {
 
 	static JFrame frame;
-	private JTable studentTable;
+	private static JTable studentTable;
 	private JTable requestTable;
 	static JTable schedulesTable;
-	private JButton btnNew = null;
+	private JButton btnNew = new JButton();
+	private JButton btnEdit = new JButton();
+	private JButton btnDelete = new JButton();
 	/**
 	 * Launch the application.
 	 */
@@ -58,8 +35,8 @@ public class EditWindow {
 	EventQueue.invokeLater(new Runnable() {
 		public void run() {
 			try {
-				EditWindow window = new EditWindow();
-				window.frame.setVisible(true);
+				EditWindow w = new EditWindow();
+				w.frame.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -100,20 +77,21 @@ public class EditWindow {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
-				if(tabbedPane.getSelectedIndex() == 0){//if the students tab is selecteddo this...
-					if(btnNew == null)	 btnNew = new JButton("New Student");
-					else{
-						btnNew.setText("New Student");
-						EditWindow.frame.update(EditWindow.frame.getGraphics());
-
-					}
-			}else if(tabbedPane.getSelectedIndex() == 1){//if the request tab is selecteddo this...
-				btnNew.setText("<html> Change tabs to <br> use functionality </html>"); //coded with html so that we can have a multiline button
-			
-				EditWindow.frame.update(EditWindow.frame.getGraphics());
+				if(tabbedPane.getSelectedIndex() == 0){//if the students tab is selected do this...
+						btnNew.setText("New Student");	
+						btnDelete.setText("Delete Student");
+						btnEdit.setText("Edit Student");
+						frame.update(frame.getGraphics());
+			}else if(tabbedPane.getSelectedIndex() == 1){//if the request tab is selected do this...
+				btnNew.setText("Accept Request"); 
+				btnEdit.setText("Edit Request");
+				btnDelete.setText("Delete Request");
+				frame.update(frame.getGraphics());
 				}else if(tabbedPane.getSelectedIndex() == 2){//is the schedules tab is selected do this...
 					btnNew.setText("New Schedule");
-					EditWindow.frame.update(EditWindow.frame.getGraphics());
+					btnEdit.setText("EditSchedule");
+					btnDelete.setText("Delete Schedule");
+					frame.update(frame.getGraphics());
 				} 
 				 }
 		});
@@ -164,76 +142,95 @@ public class EditWindow {
 		frame.getContentPane().add(panel_1, BorderLayout.EAST);
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		btnNew = new JButton("New Student");
+		
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens up another GUI Page to add a student
-				if(tabbedPane.getSelectedIndex() == 0) NewStudent.newFrame(null);
-				else ;
+				if(tabbedPane.getSelectedIndex() == 0){
+					NewStudent.newFrame(null);
+					
+				}
+				else if(tabbedPane.getSelectedIndex() == 1){
+					//ADD CODE TO SET THE REQUEST TO BE THE STUDENTS SCHEDULE
+				}
 			}
 		});
 		btnNew.setToolTipText("Create a new student");
 		panel_1.add(btnNew);
 		
-		JButton btnNewButton_1 = new JButton("Edit Schedule");
-		btnNewButton_1.addActionListener(new ActionListener() {
+	
+		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens a page to edit the classes a student has
-				if(tabbedPane.getSelectedIndex() == 2 )	openEditStudentWindow();
-				else popUpSchedules.newFrame(null);
+				if(tabbedPane.getSelectedIndex() == 0) {
+					EditStudent.newFrame(
+					studentTable.getValueAt(studentTable.getSelectedRow(),0).toString(),//get the idof the student that is selected
+					studentTable.getValueAt(studentTable.getSelectedRow(), 1).toString(),//get the name from the student table
+					(String)studentTable.getValueAt(studentTable.getSelectedRow(), 2),//get the grade from the studentTable
+									getStudentClasses());
+				}else if(tabbedPane.getSelectedIndex() == 2 )	{
+					int r = schedulesTable.getSelectedRow();
+					//opens the frame to edit the currently selected student's schedule, also passes the title of the editing window
+					EditSchedule.newFrame((String)schedulesTable.getValueAt(r, 1) + " -Id-" 
+					+schedulesTable.getValueAt(r,0).toString(), getStudentSchedule());
+				}else if (tabbedPane.getSelectedIndex() == 1){
+					System.out.println("OPEN THE EDIT REQUEST PAGE");
+				}
 			}
 		});
-		btnNewButton_1.setToolTipText("Edit a selected schedule,mainly used for schedules that are missing classes");
-		panel_1.add(btnNewButton_1);
+		btnEdit.setToolTipText("Edit a selected schedule,mainly used for schedules that are missing classes");
+		panel_1.add(btnEdit);
 		
-		JButton btnDeleteStudent = new JButton("Delete Student");
-		btnDeleteStudent.addActionListener(new ActionListener() {
+	
+		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens a pop up to confirm the delete-tion of a student
 				if(tabbedPane.getSelectedIndex() != 0) deleteButtonPopUp.newFrame(null);
 				else{
-				mysqlHandler.deleteStudent((int)studentTable.getValueAt(studentTable.getSelectedRow(), 0));	
-				//frame.getContentPane().update(frame.getContentPane().getGraphics());
-			//	studentTable.update(studentTable.getGraphics());
-				try {
-					studentTable.setModel(new DefaultTableModel(
-							mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
-							new String[] {
-								"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
-							}
-						));
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-					frame.update(frame.getGraphics());
-				}
-			}
+				mysqlHandler.deleteStudent(Integer.parseInt(studentTable.getValueAt(studentTable.getSelectedRow(), 0).toString()));	
+					refreshStudentsTab();
+			}}
 		});
-		btnDeleteStudent.setToolTipText("Delete the student that is currently selected\r\n");
-		panel_1.add(btnDeleteStudent);
+		btnDelete.setToolTipText("Delete the student that is currently selected\r\n");
+		panel_1.add(btnDelete);
 		
-		JButton btnInfo = new JButton("Info..."); //IS THIS INFO Button really needed?
-		btnInfo.setToolTipText("Displays more in depth inofrmation on the currently selected student");
-		panel_1.add(btnInfo);
+		Box verticalBox = Box.createVerticalBox(); //creates a box that keeps the buttons "pushed" towards the top of the Panel
+		verticalBox.setOpaque(true);
+		verticalBox.setForeground(Color.LIGHT_GRAY);
+		verticalBox.setBackground(new Color(192, 192, 192));
+		panel_1.add(verticalBox);
 	}
 	
-	
-	void openEditStudentWindow(){
+	public static String [] getStudentSchedule(){
 		int r, c;
 		r = schedulesTable.getSelectedRow();
 		System.out.println("Row value is : " + r);
 		c = schedulesTable.getColumnCount();
 		System.out.println("Column value  is: " + c);
-		Object classes[] = new Object[c-3];
+		String classes[] = new String[c-3];
 		
 		
 		for(int x = 0; x < c-3; x++){
-		classes[x] = schedulesTable.getValueAt(r, x+3);
+			if(schedulesTable.getValueAt(r, x+3) == null) classes[x] = "";
+			else classes[x] = schedulesTable.getValueAt(r, x+3).toString();
 		}
-		//opens the frame to edit the currently selected student's schedule, also passes the title of the editing window
-		EditStudent.newFrame((String)schedulesTable.getValueAt(r, 1) + " - Id-" 
-		+schedulesTable.getValueAt(r,0).toString(), classes);
+		return  classes;
+	}
+	
+	public static String [] getStudentClasses(){
+		int r, c;
+		r = studentTable.getSelectedRow();
+		System.out.println("Row value is : " + r);
+		c = studentTable.getColumnCount();
+		System.out.println("Column value  is: " + c);
+		String classes[] = new String[c-3];
+		
+		
+		for(int x = 0; x < c-3; x++){
+			if(studentTable.getValueAt(r, x+3) == null) classes[x] = "";
+			else classes[x] = studentTable.getValueAt(r, x+3).toString();
+		}
+		return classes;
 	}
 	
 	public static int getSchedulesCurrentRowId(){
@@ -246,5 +243,18 @@ public class EditWindow {
 		return (int)schedulesTable.getValueAt(schedulesTable.getSelectedRow(), 2);
 	}
 	
-	
+	public static void refreshStudentsTab() {
+		try {
+			studentTable.setModel(new DefaultTableModel(
+					mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
+					new String[] {
+						"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+					}
+				));
+		} catch (SQLException e) {
+			System.out.println("Problem refresh student tab with data from mysql");
+			e.printStackTrace();
+		}
+		frame.update(frame.getGraphics());
+	}
 }

@@ -32,7 +32,7 @@ public class finalSchedule {
 			preparedStmt = pop.conn.prepareStatement(query);
 			preparedStmt.execute(); //run the statement
 			rs1 = preparedStmt.getResultSet();
-			rs1.next();
+			rs1.next(); //CHANGED THIS SCHECK TO SEE RESULTS
 			rowVal[x] = rs1.getInt(1);
 		}
 		
@@ -65,8 +65,8 @@ public class finalSchedule {
 		
 		mysqlHandler.writeClassesToMysql(id, name, grade, classes);	
 	} catch (Exception e) { //checks for error
-		System.out.print(e);
-		System.out.println("Error here ");
+		e.printStackTrace();
+		System.out.println("Error in final schedule writing class to mysql ");
 	//returns -1 if there is an error
 }
 

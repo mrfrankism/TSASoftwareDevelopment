@@ -41,20 +41,15 @@ public class popUpSchedules {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 395, 213);
+		frame.setBounds(100, 100, 395, 150);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("You must be in the schedules page to use\r\n");
+		JLabel lblNewLabel = new JLabel("Please Check the data you entered is correct\r\n");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(0, 30, 377, 55);
+		lblNewLabel.setBounds(0, 0, 377, 55);
 		frame.getContentPane().add(lblNewLabel);
-		
-		JLabel lblThisFunction = new JLabel("this function...");
-		lblThisFunction.setHorizontalAlignment(SwingConstants.CENTER);
-		lblThisFunction.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblThisFunction.setBounds(93, 77, 189, 16);
-		frame.getContentPane().add(lblThisFunction);
+	
 		
 		JButton btnClose = new JButton("Close");
 		btnClose.addActionListener(new ActionListener() {
@@ -62,7 +57,7 @@ public class popUpSchedules {
 				frame.dispose();
 			}
 		});
-		btnClose.setBounds(138, 123, 97, 25);
+		btnClose.setBounds(138, 65, 97, 25);
 		frame.getContentPane().add(btnClose);
 	}
 }
