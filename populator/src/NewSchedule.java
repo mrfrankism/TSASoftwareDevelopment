@@ -1,34 +1,30 @@
-import java.awt.BorderLayout;
 import java.awt.Choice;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.Font;
 
-public class NewStudent {
+public class NewSchedule {
 
 	private static JFrame frame;
-	private JTextField txtId;
-	private JTextField txtName;
-	private JTextField txtGrade;
 
 	/**
 	 * Launch the application.
 	 */
-	
-	
 	public static void newFrame(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NewStudent window = new NewStudent();
+					NewSchedule window = new NewSchedule();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +36,7 @@ public class NewStudent {
 	/**
 	 * Create the application.
 	 */
-	public NewStudent() {
+	public NewSchedule() {
 		initialize();
 	}
 
@@ -52,55 +48,59 @@ public class NewStudent {
 		frame.setBounds(100, 100, 800, 300);
 		frame.getContentPane().setLayout(null);
 		
-		Choice math = new Choice();
-		math.setBounds(10, 42, 172, 22);
-		putAllOptions(math, mysqlHandler.readClasses("math"));
-		frame.getContentPane().add(math);
+		Choice period1 = new Choice();
+		period1.setBounds(10, 42, 172, 22);
+		putAllOptions(period1, mysqlHandler.readClasses("math"));
+		frame.getContentPane().add(period1);
 		
-		Choice science = new Choice();
-		science.setBounds(188, 42, 166, 22);
-		putAllOptions(science, mysqlHandler.readClasses("science"));//puts all the options in this dropdown needed for all drop down menus
-		frame.getContentPane().add(science);
+		Choice period2 = new Choice();
+		period2.setBounds(188, 42, 166, 22);
+		putAllOptions(period2, mysqlHandler.readClasses("science"));//puts all the options in this dropdown needed for all drop down menus
+		frame.getContentPane().add(period2);
 		
-		Choice language = new Choice();
-		language.setBounds(10, 104, 172, 22);
-		putAllOptions(language, mysqlHandler.readClasses("language"));
-		frame.getContentPane().add(language);
+		Choice period3 = new Choice();
+		period3.setBounds(10, 104, 172, 22);
+		putAllOptions(period3, mysqlHandler.readClasses("language"));
+		frame.getContentPane().add(period3);
 		
-		Choice social = new Choice();
-		social.setBounds(360, 42, 166, 22);
-		putAllOptions(social, mysqlHandler.readClasses("social"));
-		frame.getContentPane().add(social);
+		Choice period4 = new Choice();
+		period4.setBounds(360, 42, 166, 22);
+		putAllOptions(period4, mysqlHandler.readClasses("social"));
+		frame.getContentPane().add(period4);
 		
-		Choice english = new Choice();
-		english.setBounds(532, 42, 166, 22);
-		putAllOptions(english, mysqlHandler.readClasses("english"));
-		frame.getContentPane().add(english);
+		Choice period5 = new Choice();
+		period5.setBounds(532, 42, 166, 22);
+		putAllOptions(period5, mysqlHandler.readClasses("english"));
+		frame.getContentPane().add(period5);
 		
-		Choice pe = new Choice();
-		pe.setBounds(360, 104, 166, 22);
-		putAllOptions(pe, mysqlHandler.readClasses("pe"));
-		frame.getContentPane().add(pe);
+		Choice period6 = new Choice();
+		period6.setBounds(360, 104, 166, 22);
+		putAllOptions(period6, mysqlHandler.readClasses("pe"));
+		frame.getContentPane().add(period6);
 		
-		Choice art = new Choice();
-		art.setBounds(188, 104, 166, 22);
-		putAllOptions(art, mysqlHandler.readClasses("art"));
-		frame.getContentPane().add(art);
+		Choice period7 = new Choice();
+		period7.setBounds(188, 104, 166, 22);
+		putAllOptions(period7, mysqlHandler.readClasses("art"));
+		frame.getContentPane().add(period7);
 		
 		JButton btnSave = new JButton("Save");
+		JTextField txtName;
+		JTextField txtId;
+		JTextField txtGrade;
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				String chosenClasses[] = {
-						math.getSelectedItem(), science.getSelectedItem(),
-						social.getSelectedItem(), language.getSelectedItem(),
-						art.getSelectedItem(), pe.getSelectedItem(),
-						english.getSelectedItem()
+						period1.getSelectedItem(), period2.getSelectedItem(),
+						period4.getSelectedItem(), period3.getSelectedItem(),
+						period7.getSelectedItem(), period6.getSelectedItem(),
+						period5.getSelectedItem()
 				};//set up the array with the new students classes
 				try{
-				mysqlHandler.writeStudentToMysql(Integer.parseInt(txtId.getText()), txtName.getText(), Integer.parseInt(txtGrade.getText()), chosenClasses);
+				
+				mysqlHandler.writeScheduleToMysql(Integer.parseInt(txtId.getText()), txtName.getText(), Integer.parseInt(txtGrade.getText()), chosenClasses);
 				EditWindow.refreshStudentData();//refresh the students tab to reflect the new student
-				NewStudent.frame.dispose(); //closes the new student window
+				NewSchedule.frame.dispose(); //closes the new student window
 				}catch(Exception ex){
 				popUpSchedules.newFrame(null);
 			}
@@ -125,43 +125,43 @@ public class NewStudent {
 		frame.getContentPane().add(txtGrade);
 		txtGrade.setColumns(10);
 		
-		JLabel lblPeriod = new JLabel("Math");
+		JLabel lblPeriod = new JLabel("Period 1");
 		lblPeriod.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPeriod.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPeriod.setBounds(10, 13, 166, 22);
 		frame.getContentPane().add(lblPeriod);
 		
-		JLabel lblScience = new JLabel("Science");
+		JLabel lblScience = new JLabel("Period 2");
 		lblScience.setHorizontalAlignment(SwingConstants.CENTER);
 		lblScience.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblScience.setBounds(188, 13, 166, 22);
 		frame.getContentPane().add(lblScience);
 		
-		JLabel lblSocialStudies = new JLabel("Social Studies");
+		JLabel lblSocialStudies = new JLabel("Period 3");
 		lblSocialStudies.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSocialStudies.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSocialStudies.setBounds(360, 13, 166, 22);
 		frame.getContentPane().add(lblSocialStudies);
 		
-		JLabel lblLanguage = new JLabel("English");
+		JLabel lblLanguage = new JLabel("Period 4");
 		lblLanguage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLanguage.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblLanguage.setBounds(532, 13, 166, 22);
 		frame.getContentPane().add(lblLanguage);
 		
-		JLabel lblLanguage_1 = new JLabel("Language");
+		JLabel lblLanguage_1 = new JLabel("Period 5");
 		lblLanguage_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLanguage_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblLanguage_1.setBounds(10, 76, 172, 22);
 		frame.getContentPane().add(lblLanguage_1);
 		
-		JLabel lblArt = new JLabel("Art");
+		JLabel lblArt = new JLabel("Period 6");
 		lblArt.setHorizontalAlignment(SwingConstants.CENTER);
 		lblArt.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblArt.setBounds(188, 76, 166, 22);
 		frame.getContentPane().add(lblArt);
 		
-		JLabel lblPhysicalEd = new JLabel("Physical Ed.");
+		JLabel lblPhysicalEd = new JLabel("Period 7eqwe");
 		lblPhysicalEd.setHorizontalAlignment(SwingConstants.CENTER);
 		lblPhysicalEd.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPhysicalEd.setBounds(360, 76, 166, 22);
@@ -190,4 +190,4 @@ public class NewStudent {
 	}
 	}
 
-
+}

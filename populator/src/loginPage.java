@@ -167,22 +167,7 @@ public class loginPage {
 				homePage.NewScreen();
 				loginPage.frame.dispose();
 
-			    PrintWriter printWriter;
-					try {
-						printWriter = new PrintWriter ("adminData.txt");
-						printWriter.println (pop.IP);
-						System.out.println(pop.IP);
-					    printWriter.println (pop.first);
-					    printWriter.println (pop.last);
-					    printWriter.println (pop.user);
-					    printWriter.println (pop.pass);
-					    printWriter.println (pop.port);
-					    printWriter.flush();
-					    printWriter.close ();  
-					} catch (FileNotFoundException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+			  editConnection.saveSettings();
 					
 			}});
 			

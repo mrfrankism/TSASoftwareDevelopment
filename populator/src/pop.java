@@ -83,6 +83,7 @@ public class pop  implements Runnable{
 	      
 	}
 public void run(){
+	//if(firstRun)makeStudents();
 	sortSchool();
 	graphMaker.getGraphs();
 	homePage.frame.update(homePage.frame.getGraphics());

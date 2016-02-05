@@ -105,7 +105,7 @@ public class EditStudent {
 				};//set up the array with the new students classes
 				try{
 				mysqlHandler.editStudentInMysql(Integer.parseInt(txtId.getText()), txtName.getText(), Integer.parseInt(txtGrade.getText()), chosenClasses);
-				EditWindow.refreshStudentsTab();//refresh the students tab to reflect the new student
+				EditWindow.refreshStudentData();//refresh the students tab to reflect the new student
 				EditStudent.frame.dispose(); //closes the new student window
 				}catch(Exception ex){
 				popUpSchedules.newFrame(null);

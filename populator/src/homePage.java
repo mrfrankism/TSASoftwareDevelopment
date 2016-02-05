@@ -185,7 +185,7 @@ public class homePage {
 		tabbedPane.addTab("PE", null, lblNewLabel_6, null);
 		lblNewLabel_6.setIcon(new ImageIcon("pePieChart.png"));
 		
-		JButton btnResort = new JButton("Resort");
+		JButton btnResort = new JButton("Sort");
 		btnResort.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//pop.makeStudents();//TAKE THIS OUT FOR FINAL RELEASE

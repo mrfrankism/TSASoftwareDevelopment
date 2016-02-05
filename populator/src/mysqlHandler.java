@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 //This class handles all the mysql server requests 
 public class mysqlHandler {
-	static int columnsInLogin = 13;
+	static int columnsInLogin = 12;
 	static int columnsInSchedules = 10;
 	static int columnsInStudents = 10;
 	
@@ -61,6 +61,7 @@ int columns = 0;
 			for(int x = 0; x < columns; x++){
 				//data[y][x]  = new Integer(1);
 				
+				//data[y][x] = rs1.getObject(x+1);
 				data[y][x] = rs1.getObject(x+1);
 				
 			//       	if(rs1.wasNull()) break;
@@ -181,7 +182,23 @@ int columns = 0;
 		}		
 	 return -1;	//returns -1 if there is an error
 	}
-	
+	public static int getGrade(int id, String table){
+		PreparedStatement preparedStmt;
+		ResultSet rs1;
+		try{
+		String query = "select grade from "+ table + " where id = " + id;
+		preparedStmt = pop.conn.prepareStatement(query);
+		preparedStmt.execute(); 
+		rs1 = preparedStmt.getResultSet();
+		rs1.next();//set it to the first row 
+		return rs1.getInt(1);//Gets the grade from the resuult set
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem getting a student id: " + id +" grade from table " + table);
+	}
+		return 0;
+	}
 	public static void setLogin(String param, String value) {
 		try{
 			String query = "insert into login (" + param + ") values (" + value + ")"; 
@@ -271,6 +288,34 @@ int columns = 0;
 	}catch(Exception e){ 
 		System.out.println(e);
 		System.out.println("problem deleting student with id: "+ id +" from students table");
+	}
+	}
+		public static void deleteSchedule(int id){ //write the periods table to mysql
+			PreparedStatement preparedStmt;
+			ResultSet rs1;
+		
+			try{
+			String query = "delete from schedules where id = " + id;
+			preparedStmt = pop.conn.prepareStatement(query);
+			preparedStmt.execute(); 
+			
+		}catch(Exception e){ 
+			System.out.println(e);
+			System.out.println("problem deleting schedule with id: "+ id +" from schedules table");
+		}
+	
+	}
+	
+	public static void deleteRequest(int id){ //delete a request from the login page
+		PreparedStatement preparedStmt;	
+		try{
+		String query = "delete from login where id = " + id;
+		preparedStmt = pop.conn.prepareStatement(query);
+		preparedStmt.execute(); 
+		
+	}catch(Exception e){ 
+		System.out.println(e);
+		System.out.println("problem deleting student request  with id: "+ id +" from login table");
 	}
 	
 	}

@@ -6,6 +6,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.awt.event.ActionEvent;
 
 public class editConnection {
@@ -158,6 +160,7 @@ public class editConnection {
 				pop.last = settings[5];
 				
 				//LINK TO HANNAH"S METHOD  TO SAVE THE SETTINGS IN THE FILE
+				saveSettings();
 				pop.connect(settings); //tries to reconnect with the mysql server using the new settings
 				frame.dispose();//CHECK IF THIS WORKS BECSUE IT MIGHT RUN INTO A LOOP WITH RECONNECT
 			}
@@ -168,7 +171,23 @@ public class editConnection {
 	}
 	
 	
-	void saveSetting(JTextField textField, String p){
+	public static void saveSettings(){
+	    PrintWriter printWriter;
+		try {
+			printWriter = new PrintWriter ("adminData.txt");
+			printWriter.println (pop.IP);
+			System.out.println(pop.IP);
+		    printWriter.println (pop.first);
+		    printWriter.println (pop.last);
+		    printWriter.println (pop.user);
+		    printWriter.println (pop.pass);
+		    printWriter.println (pop.port);
+		    printWriter.flush();
+		    printWriter.close ();  
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	}
 

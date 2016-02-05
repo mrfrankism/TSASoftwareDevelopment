@@ -17,15 +17,7 @@ public class graphMaker
 {
    public static void getGraphs() 
    {
-	    String[][] subs = new String[][]{
-	    	  { "math", "Pre-calc", "Ap-Calc", "Calc Hrs", "Algebra 2", "Geometry"},
-	    	  { "science", "Chemis", "Bio", "Physics", "Physical", "DE Geo" },
-	    	  { "social","US History", "World Hist", "Human Geo", "Gov", "Econ" },
-	    	  { "english","Ap-Lit", "Ap-Lang", "Lit Hrs", "Lang Hrs", "World Lit" },
-	    	  { "art", "3d art", "fabrics and fibers", "2d art", "sculpting", "art hist" },
-	    	  { "pe", "scuba", "gym", "sports1", "swim", "sailing" },
-	    	  { "language", "german", "spanish", "chineese", "hebrew", "portuge" }
-	    	};
+	    String[][] subs = pop.subjectss;
 
 	    	
 	 for(int x=0; x<subs.length; x++){

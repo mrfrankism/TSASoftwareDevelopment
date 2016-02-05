@@ -4,6 +4,8 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.concurrent.ScheduledExecutorService;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,7 +25,7 @@ public class EditWindow {
 
 	static JFrame frame;
 	private static JTable studentTable;
-	private JTable requestTable;
+	private static JTable requestTable;
 	static JTable schedulesTable;
 	private JButton btnNew = new JButton();
 	private JButton btnEdit = new JButton();
@@ -80,16 +82,19 @@ public class EditWindow {
 				if(tabbedPane.getSelectedIndex() == 0){//if the students tab is selected do this...
 						btnNew.setText("New Student");	
 						btnDelete.setText("Delete Student");
+						btnEdit.setEnabled(true);
 						btnEdit.setText("Edit Student");
 						frame.update(frame.getGraphics());
 			}else if(tabbedPane.getSelectedIndex() == 1){//if the request tab is selected do this...
 				btnNew.setText("Accept Request"); 
-				btnEdit.setText("Edit Request");
+				btnEdit.setEnabled(false);
+				btnEdit.setText("Switch Tabs");
 				btnDelete.setText("Delete Request");
 				frame.update(frame.getGraphics());
 				}else if(tabbedPane.getSelectedIndex() == 2){//is the schedules tab is selected do this...
 					btnNew.setText("New Schedule");
-					btnEdit.setText("EditSchedule");
+					btnEdit.setEnabled(true);
+					btnEdit.setText("Edit Schedule");
 					btnDelete.setText("Delete Schedule");
 					frame.update(frame.getGraphics());
 				} 
@@ -107,7 +112,7 @@ public class EditWindow {
 		studentTable.setModel(new DefaultTableModel(
 			mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
 			new String[] {
-				"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+				"ID", "Name", "Grade", "Math", "Science", "History", "Language", "Physical Ed.", "Art", "English"
 			}
 		));
 		JScrollPane jsp = new JScrollPane(studentTable);
@@ -115,11 +120,10 @@ public class EditWindow {
 		
 		
 		requestTable = new JTable();
-		
 		requestTable.setModel(new DefaultTableModel(
 				mysqlHandler.getTableData("requests", 20), //gets the student info from Mysql possible only parse 500 students at a time
 				new String[] {
-					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+					"ID","Password", "First Name", "Last Name","Email", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 				}
 			));
 		JScrollPane jsp1 = new JScrollPane(requestTable);
@@ -152,6 +156,18 @@ public class EditWindow {
 				}
 				else if(tabbedPane.getSelectedIndex() == 1){
 					//ADD CODE TO SET THE REQUEST TO BE THE STUDENTS SCHEDULE
+					int row = requestTable.getSelectedRow();
+					String classes[] = new String[pop.numPeriods];
+					for(int x = 0; x < pop.numPeriods; x++)classes[x] = requestTable.getValueAt(row, x+5).toString();
+					
+					mysqlHandler.changeSchedule(Integer.parseInt(requestTable.getValueAt(row, 0).toString()),
+							requestTable.getValueAt(row, 2).toString() + " " + requestTable.getValueAt(row, 3).toString(),
+							mysqlHandler.getGrade(Integer.parseInt(requestTable.getValueAt(row, 0).toString()), "students"),
+							classes);
+					//MENTION IN MANUAL THAT IF THE GRADE IN SCHEDULES IS 0 IT IS BECAUSE THE STUDENTS ID WAS NOT FOUND IN STUDENTS TABLE SO THE GRADE WAS NOT FOUND
+				//REMOVE THE REQUEST FROM THE REQUEST TAB 
+					//mysqlHandler.deleteRequest(Integer.parseInt(requestTable.getValueAt(requestTable.getSelectedRow(), 0).toString()));
+					//refreshRequestData();
 				}
 			}
 		});
@@ -173,8 +189,6 @@ public class EditWindow {
 					//opens the frame to edit the currently selected student's schedule, also passes the title of the editing window
 					EditSchedule.newFrame((String)schedulesTable.getValueAt(r, 1) + " -Id-" 
 					+schedulesTable.getValueAt(r,0).toString(), getStudentSchedule());
-				}else if (tabbedPane.getSelectedIndex() == 1){
-					System.out.println("OPEN THE EDIT REQUEST PAGE");
 				}
 			}
 		});
@@ -185,11 +199,17 @@ public class EditWindow {
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//opens a pop up to confirm the delete-tion of a student
-				if(tabbedPane.getSelectedIndex() != 0) deleteButtonPopUp.newFrame(null);
-				else{
-				mysqlHandler.deleteStudent(Integer.parseInt(studentTable.getValueAt(studentTable.getSelectedRow(), 0).toString()));	
-					refreshStudentsTab();
-			}}
+				if(tabbedPane.getSelectedIndex() == 0) {
+					mysqlHandler.deleteStudent(Integer.parseInt(studentTable.getValueAt(studentTable.getSelectedRow(), 0).toString()));	
+					refreshStudentData();
+				}else if(tabbedPane.getSelectedIndex() == 1){
+					mysqlHandler.deleteRequest(Integer.parseInt(requestTable.getValueAt(requestTable.getSelectedRow(), 0).toString()));
+					refreshRequestData();
+				}else if(tabbedPane.getSelectedIndex() == 2){
+				mysqlHandler.deleteSchedule(Integer.parseInt(schedulesTable.getValueAt(schedulesTable.getSelectedRow(), 0).toString()));
+				refreshScheduleData();
+				}
+			}
 		});
 		btnDelete.setToolTipText("Delete the student that is currently selected\r\n");
 		panel_1.add(btnDelete);
@@ -243,16 +263,45 @@ public class EditWindow {
 		return (int)schedulesTable.getValueAt(schedulesTable.getSelectedRow(), 2);
 	}
 	
-	public static void refreshStudentsTab() {
+	public static void refreshStudentData() {
 		try {
 			studentTable.setModel(new DefaultTableModel(
 					mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
 					new String[] {
-						"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
-					}
+							"ID", "Name", "Grade", "Math", "Science", "History", "Language", "Physical Ed.", "Art", "English"
+							}
 				));
 		} catch (SQLException e) {
 			System.out.println("Problem refresh student tab with data from mysql");
+			e.printStackTrace();
+		}
+		frame.update(frame.getGraphics());
+	}
+	public static void refreshRequestData() {
+
+		try {
+			requestTable.setModel(new DefaultTableModel(
+			mysqlHandler.getTableData("requests", 20), //gets the student info from Mysql possible only parse 500 students at a time
+			new String[] {
+				"ID","Password", "First Name", "Last Name","Email", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+			}
+		));
+		} catch (SQLException e) {
+			System.out.println("Problem refresh requests tab with data from mysql");
+			e.printStackTrace();
+		}
+		frame.update(frame.getGraphics());
+	}
+	public static void refreshScheduleData() {
+		try {
+			schedulesTable.setModel(new DefaultTableModel(
+					mysqlHandler.getTableData("schedules", 20), //gets the student info from Mysql possible only parse 500 students at a time
+					new String[] {
+							"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+						}
+				));
+		} catch (SQLException e) {
+			System.out.println("Problem refresh schedules tab with data from mysql");
 			e.printStackTrace();
 		}
 		frame.update(frame.getGraphics());
