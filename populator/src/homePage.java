@@ -20,7 +20,9 @@ import javax.swing.ImageIcon;
 public class homePage {
 
 	static JFrame frame;
-
+	static JLabel lblNewLabel;
+	static JLabel lblNewLabel_3;
+	static JTabbedPane tabbedPane;
 	/**
 	 * Launch the application.
 	 */
@@ -54,7 +56,7 @@ public class homePage {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Hello "+ pop.first+ " " + pop.last);
+		lblNewLabel = new JLabel("Hello "+ pop.first+ " " + pop.last);
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
 		lblNewLabel.setBounds(18, 6, 350, 20);
 		frame.getContentPane().add(lblNewLabel);
@@ -138,8 +140,26 @@ public class homePage {
 		frame.getContentPane().add(btnRefresh);
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				graphMaker.getGraphs();
-				frame.update(frame.getGraphics());
+				 Thread t = new Thread(new Runnable() {
+				        @Override
+				        public void run() {
+				        	frame.dispose();
+				        	graphMaker.getGraphs();
+				        	homePage.NewScreen();
+//				        	
+//				        	
+//							lblNewLabel_3.setIcon(new ImageIcon("mathPieChart.png"));
+//							lblNewLabel_3.update(lblNewLabel_3.getGraphics());
+//							tabbedPane.update(tabbedPane.getGraphics());
+//							lblNewLabel_3.revalidate();
+//							lblNewLabel_3.repaint();
+//							tabbedPane.revalidate();
+//							tabbedPane.repaint();
+//							frame.update(frame.getGraphics());
+				        }     
+				    });
+				    t.start();
+			
 				}			
 			});
 		
@@ -156,11 +176,11 @@ public class homePage {
 			lblNewLabel_8.setBounds(420, 0, 100, 100);
 			frame.getContentPane().add(lblNewLabel_8);
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(5, 50, 350, 300);
 		frame.getContentPane().add(tabbedPane);
 		
-				JLabel lblNewLabel_3 = new JLabel();
+				lblNewLabel_3 = new JLabel();
 				tabbedPane.addTab("Math", null, lblNewLabel_3, null);
 				lblNewLabel_3.setIcon(new ImageIcon("mathPieChart.png"));
 				
@@ -193,9 +213,13 @@ public class homePage {
 				
 			}
 		});
-		btnResort.setBounds(258, 18, 97, 25);
+		btnResort.setBounds(286, 18, 97, 25);
 		frame.getContentPane().add(btnResort);
 
 		
+	}
+	public static void updateName(){
+		lblNewLabel.setText("Hello "+ pop.first+ " " + pop.last);
+		frame.update(frame.getGraphics());
 	}
 }

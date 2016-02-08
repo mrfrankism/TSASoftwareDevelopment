@@ -87,26 +87,7 @@ public class NewSchedule {
 		JTextField txtName;
 		JTextField txtId;
 		JTextField txtGrade;
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String chosenClasses[] = {
-						period1.getSelectedItem(), period2.getSelectedItem(),
-						period4.getSelectedItem(), period3.getSelectedItem(),
-						period7.getSelectedItem(), period6.getSelectedItem(),
-						period5.getSelectedItem()
-				};//set up the array with the new students classes
-				try{
-				
-				mysqlHandler.writeScheduleToMysql(Integer.parseInt(txtId.getText()), txtName.getText(), Integer.parseInt(txtGrade.getText()), chosenClasses);
-				EditWindow.refreshStudentData();//refresh the students tab to reflect the new student
-				NewSchedule.frame.dispose(); //closes the new student window
-				}catch(Exception ex){
-				popUpSchedules.newFrame(null);
-			}
-				
-			}
-		});
+
 		btnSave.setBounds(0, 228, 782, 25);
 		frame.getContentPane().add(btnSave);
 		
@@ -125,6 +106,26 @@ public class NewSchedule {
 		frame.getContentPane().add(txtGrade);
 		txtGrade.setColumns(10);
 		
+		
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String chosenClasses[] = {
+						period1.getSelectedItem(), period2.getSelectedItem(),
+						period4.getSelectedItem(), period3.getSelectedItem(),
+						period7.getSelectedItem(), period6.getSelectedItem(),
+						period5.getSelectedItem()
+				};//set up the array with the new students classes
+				try{
+				
+				mysqlHandler.writeScheduleToMysql(Integer.parseInt(txtId.getText()), txtName.getText(), Integer.parseInt(txtGrade.getText()), chosenClasses);
+				EditWindow.refreshScheduleData();//refresh the students tab to reflect the new student
+				NewSchedule.frame.dispose(); //closes the new student window
+				}catch(Exception ex){
+				popUpSchedules.newFrame(null);
+			}				
+			}
+		});
 		JLabel lblPeriod = new JLabel("Period 1");
 		lblPeriod.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPeriod.setHorizontalAlignment(SwingConstants.CENTER);
@@ -190,4 +191,4 @@ public class NewSchedule {
 	}
 	}
 
-}
+

@@ -75,7 +75,7 @@ int columns = 0;
 	}
 		}
 	
-	public static void writeClassesToMysql(int id, String name, int g, String [] c){ //write the periods table to mysql
+	public static void writeScheduleToMysql(int id, String name, int g, String [] c){ //write the periods table to mysql
 		try{
 		String query = "insert into schedules (id, name, grade, pd1, pd2, pd3, pd4, pd5, pd6, pd7)"
 		        + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
@@ -96,6 +96,7 @@ int columns = 0;
 		System.out.println("SOMETHING WENT WRONG");
 	}
 	}
+	
 	public static void writeStudentToMysql(int id, String name, int g, String [] c){ //write the periods table to mysql
 		try{
 		String query = "insert into students (id, name, grade, math, science, social, language, pe, art, english)"

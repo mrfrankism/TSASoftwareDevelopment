@@ -149,7 +149,7 @@ public class editConnection {
 				else settings[4] = FirstName.getText();
 				
 				if(LastName.getText().equals("")) settings[5] = pop.last;
-				else settings[5] = FirstName.getText();
+				else settings[5] = LastName.getText();
 				
 				//set settings variables locally to the most current ones
 				pop.IP = settings[0];
@@ -162,6 +162,7 @@ public class editConnection {
 				//LINK TO HANNAH"S METHOD  TO SAVE THE SETTINGS IN THE FILE
 				saveSettings();
 				pop.connect(settings); //tries to reconnect with the mysql server using the new settings
+				homePage.updateName();
 				frame.dispose();//CHECK IF THIS WORKS BECSUE IT MIGHT RUN INTO A LOOP WITH RECONNECT
 			}
 		});

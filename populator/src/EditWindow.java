@@ -109,6 +109,7 @@ public class EditWindow {
 		studentTable.setDebugGraphicsOptions(DebugGraphics.BUFFERED_OPTION);
 		studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		studentTable.setShowVerticalLines(false);
+		
 		studentTable.setModel(new DefaultTableModel(
 			mysqlHandler.getTableData("students", 20), //gets the student info from Mysql possible only parse 500 students at a time
 			new String[] {
@@ -135,7 +136,7 @@ public class EditWindow {
 		schedulesTable.setModel(new DefaultTableModel(
 				mysqlHandler.getTableData("schedules", 20), //gets the student info from Mysql possible only parse 500 students at a time
 				new String[] {
-					"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+					"ID", "First Name", "Grade", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 				}
 			));
 	JScrollPane jsp2 = new JScrollPane(schedulesTable);
@@ -152,9 +153,9 @@ public class EditWindow {
 				//opens up another GUI Page to add a student
 				if(tabbedPane.getSelectedIndex() == 0){
 					NewStudent.newFrame(null);
-					
-				}
-				else if(tabbedPane.getSelectedIndex() == 1){
+				}else if (tabbedPane.getSelectedIndex() == 2){
+						NewSchedule.newFrame(null);
+				}else if(tabbedPane.getSelectedIndex() == 1){
 					//ADD CODE TO SET THE REQUEST TO BE THE STUDENTS SCHEDULE
 					int row = requestTable.getSelectedRow();
 					String classes[] = new String[pop.numPeriods];
@@ -166,11 +167,13 @@ public class EditWindow {
 							classes);
 					//MENTION IN MANUAL THAT IF THE GRADE IN SCHEDULES IS 0 IT IS BECAUSE THE STUDENTS ID WAS NOT FOUND IN STUDENTS TABLE SO THE GRADE WAS NOT FOUND
 				//REMOVE THE REQUEST FROM THE REQUEST TAB 
-					//mysqlHandler.deleteRequest(Integer.parseInt(requestTable.getValueAt(requestTable.getSelectedRow(), 0).toString()));
-					//refreshRequestData();
+					mysqlHandler.deleteRequest(Integer.parseInt(requestTable.getValueAt(requestTable.getSelectedRow(), 0).toString()));
+					refreshRequestData();
 				}
-			}
-		});
+				}
+		}
+			
+		);
 		btnNew.setToolTipText("Create a new student");
 		panel_1.add(btnNew);
 		
@@ -297,7 +300,7 @@ public class EditWindow {
 			schedulesTable.setModel(new DefaultTableModel(
 					mysqlHandler.getTableData("schedules", 20), //gets the student info from Mysql possible only parse 500 students at a time
 					new String[] {
-							"ID", "First Name", "Last Name", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
+							"ID", "First Name", "Grade", "Period 1", "Period 2", "Period 3", "Period 4", "Period 5", "Period 6", "Period 7"
 						}
 				));
 		} catch (SQLException e) {

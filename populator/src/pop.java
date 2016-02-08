@@ -6,12 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import javax.swing.JFrame;
-
 import java.sql.ResultSet;
-//import com.mysql.*;
-//import com.mysql.jdbc.PreparedStatement;
+
 public class pop  implements Runnable{
 	public static String IP ;
 	public static String first;

@@ -63,7 +63,7 @@ public class finalSchedule {
 		
 		
 		
-		mysqlHandler.writeClassesToMysql(id, name, grade, classes);	
+		mysqlHandler.writeScheduleToMysql(id, name, grade, classes);	
 	} catch (Exception e) { //checks for error
 		e.printStackTrace();
 		System.out.println("Error in final schedule writing class to mysql ");

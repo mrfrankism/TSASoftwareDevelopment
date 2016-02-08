@@ -25,6 +25,7 @@ public class graphMaker
 		 DefaultPieDataset dataset = new DefaultPieDataset();
 		 for(int y=1; y<subs[x].length; y++){
 			 dataset.setValue(subs[x][y], new Integer(pop.getNumberOfStudents(subject, subs[x][y])));
+			 System.out.println(subs[x][y] + " number of people: " +pop.getNumberOfStudents(subject, subs[x][y]));
 		 }
 	      JFreeChart pieChartObject = ChartFactory.createPieChart(
 	    	         (subject.toUpperCase() +" CLASSES"),dataset, true, true, true);
@@ -39,8 +40,17 @@ public class graphMaker
 	    	      int width = 300; /* Width of the image */
 	    	      int height = 250; /* Height of the image */ 
 	    	      File pieChart = new File( subject+"PieChart.png" );
+	    	      if(pieChart.exists())
+					try {
+						pieChart.createNewFile();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+						System.out.println("Could not make a new file from existing one");
+					}
 	    	      try {
 					ChartUtilities.saveChartAsPNG(pieChart , pieChartObject, width ,height);
+					//ChartUtilities.
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
