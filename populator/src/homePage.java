@@ -1,27 +1,27 @@
+import java.awt.Component;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
-import javax.swing.JButton;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.ImageIcon;
 
 
 public class homePage {
 
 	static JFrame frame;
 	static JLabel lblNewLabel;
-	static JLabel lblNewLabel_3;
+	static JLabel mathLbl;
+	static JLabel socialStudiesLbl, scienceLbl, englishLbl, peLbl, languageLbl, artLbl;
+	
 	static JTabbedPane tabbedPane;
 	/**
 	 * Launch the application.
@@ -138,24 +138,24 @@ public class homePage {
 		btnRefresh.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		btnRefresh.setBounds(370, 227, 95, 40);
 		frame.getContentPane().add(btnRefresh);
+		
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				 Thread t = new Thread(new Runnable() {
 				        @Override
 				        public void run() {
-				        	frame.dispose();
+				        	frame.setTitle("Working");
 				        	graphMaker.getGraphs();
-				        	homePage.NewScreen();
-//				        	
-//				        	
-//							lblNewLabel_3.setIcon(new ImageIcon("mathPieChart.png"));
-//							lblNewLabel_3.update(lblNewLabel_3.getGraphics());
-//							tabbedPane.update(tabbedPane.getGraphics());
-//							lblNewLabel_3.revalidate();
-//							lblNewLabel_3.repaint();
-//							tabbedPane.revalidate();
-//							tabbedPane.repaint();
-//							frame.update(frame.getGraphics());
+				        
+				        	//Updates all the images in the tabs to the recently made ones
+							mathLbl.setIcon(getImageIcon(new File("mathPieChart.png")));
+							socialStudiesLbl.setIcon(getImageIcon(new File("socialPieChart.png")));
+							scienceLbl.setIcon(getImageIcon(new File("sciencePieChart.png")));
+							languageLbl.setIcon(getImageIcon(new File("languagePieChart.png")));
+							englishLbl.setIcon(getImageIcon(new File("englishPieChart.png")));
+							artLbl.setIcon(getImageIcon(new File("artPieChart.png")));
+							peLbl.setIcon(getImageIcon(new File("pePieChart.png")));
+							frame.setTitle("");
 				        }     
 				    });
 				    t.start();
@@ -180,30 +180,35 @@ public class homePage {
 		tabbedPane.setBounds(5, 50, 350, 300);
 		frame.getContentPane().add(tabbedPane);
 		
-				lblNewLabel_3 = new JLabel();
-				tabbedPane.addTab("Math", null, lblNewLabel_3, null);
-				lblNewLabel_3.setIcon(new ImageIcon("mathPieChart.png"));
+	
+		
+		mathLbl = new JLabel();
+		mathLbl.setIcon(getImageIcon(new File("mathPieChart.png")));
+		tabbedPane.add("Math", mathLbl);
 				
-				
-				JLabel lblNewLabel_4 = new JLabel();
-				tabbedPane.addTab("Social Studies", null, lblNewLabel_4, null);
-				lblNewLabel_4.setIcon(new ImageIcon("socialPieChart.png"));
+		socialStudiesLbl = new JLabel();
+		tabbedPane.addTab("Social Studies", socialStudiesLbl);
+		socialStudiesLbl.setIcon(getImageIcon(new File("socialPieChart.png")));
 		
-		JLabel lblNewLabel_2 = new JLabel();
-		tabbedPane.addTab("Science", null, lblNewLabel_2, null);
-		lblNewLabel_2.setIcon(new ImageIcon("sciencePieChart.png"));
+		scienceLbl = new JLabel();
+		tabbedPane.addTab("Science", scienceLbl);
+		scienceLbl.setIcon(getImageIcon(new File("sciencePieChart.png")));
 		
-		JLabel lblNewLabel_7 = new JLabel();
-		tabbedPane.addTab("English", null, lblNewLabel_7, null);
-		lblNewLabel_7.setIcon(new ImageIcon("englishPieChart.png"));
+		englishLbl = new JLabel();
+		tabbedPane.addTab("English", englishLbl);
+		englishLbl.setIcon(getImageIcon(new File("englishPieChart.png")));
 		
-		JLabel lblNewLabel_5 = new JLabel();
-		tabbedPane.addTab("Language", null, lblNewLabel_5, null);
-		lblNewLabel_5.setIcon(new ImageIcon("languagePieChart.png"));
+		languageLbl = new JLabel();
+		tabbedPane.addTab("Language", languageLbl);
+		languageLbl.setIcon(getImageIcon(new File("languagePieChart.png")));
 		
-		JLabel lblNewLabel_6 = new JLabel();
-		tabbedPane.addTab("PE", null, lblNewLabel_6, null);
-		lblNewLabel_6.setIcon(new ImageIcon("pePieChart.png"));
+		artLbl = new JLabel();
+		tabbedPane.addTab("Art", artLbl);
+		artLbl.setIcon(getImageIcon(new File("artPieChart.png")));
+		
+		peLbl = new JLabel();
+		tabbedPane.addTab("PE", peLbl);
+		peLbl.setIcon(getImageIcon(new File("pePieChart.png")));
 		
 		JButton btnResort = new JButton("Sort");
 		btnResort.addActionListener(new ActionListener() {
@@ -222,4 +227,37 @@ public class homePage {
 		lblNewLabel.setText("Hello "+ pop.first+ " " + pop.last);
 		frame.update(frame.getGraphics());
 	}
+	 @SuppressWarnings("finally")
+	public ImageIcon getImageIcon(File f)
+	    {
+
+		 ImageIcon ii = null;
+	        try
+	        {
+	            Image im = ImageIO.read(f);
+
+
+	            ii = new ImageIcon(im);
+
+
+	        }
+	        catch(IOException i)
+	        {
+
+	            i.printStackTrace();
+
+
+	        }
+
+
+
+	        finally
+	        {
+
+	            return ii;
+
+	        }
+
+
+	    }
 }

@@ -1,11 +1,16 @@
 import java.sql.DriverManager;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
 import java.sql.ResultSet;
 
 public class pop  implements Runnable{
@@ -80,10 +85,9 @@ public class pop  implements Runnable{
 	}
 public void run(){
 	//if(firstRun)makeStudents();
+	homePage.frame.setTitle("Working");
 	sortSchool();
-	graphMaker.getGraphs();
-	homePage.frame.update(homePage.frame.getGraphics());
-	System.out.println("DONE!!!");
+	homePage.frame.setTitle("");
 }
 public static void makeStudents(){
 	   
@@ -258,6 +262,8 @@ public static void sortSchool(){
 		}
 		
 		}
+	
+
 }
 
 

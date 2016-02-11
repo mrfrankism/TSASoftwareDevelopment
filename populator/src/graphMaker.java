@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.io.*;
 import java.text.DecimalFormat;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import org.jfree.chart.JFreeChart; 
 import org.jfree.chart.ChartFactory; 
 import org.jfree.chart.ChartUtilities; 
@@ -15,6 +18,8 @@ import org.jfree.chart.plot.PiePlot;
 
 public class graphMaker
 {
+	public static Icon mathIcon = new ImageIcon("mathPieChart.png");
+
    public static void getGraphs() 
    {
 	    String[][] subs = pop.subjectss;
@@ -41,15 +46,10 @@ public class graphMaker
 	    	      int height = 250; /* Height of the image */ 
 	    	      File pieChart = new File( subject+"PieChart.png" );
 	    	      if(pieChart.exists())
-					try {
-						pieChart.createNewFile();
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-						System.out.println("Could not make a new file from existing one");
-					}
+					pieChart.delete();
 	    	      try {
 					ChartUtilities.saveChartAsPNG(pieChart , pieChartObject, width ,height);
+					mathIcon = new ImageIcon("mathPieChart.png");
 					//ChartUtilities.
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

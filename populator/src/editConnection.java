@@ -52,6 +52,11 @@ public class editConnection {
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+			}
+		});
 		btnClose.setBounds(12, 215, 97, 25);
 		frame.getContentPane().add(btnClose);
 		
