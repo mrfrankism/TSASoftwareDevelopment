@@ -1,6 +1,6 @@
-mastacademy.ddns.net
+sampleschool.ddns.net
 franco
-baudino
+Baudino
 counselor
-mastacademy
+samplePass
 1234
