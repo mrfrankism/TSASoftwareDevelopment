@@ -1,4 +1,9 @@
-<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>The Team</b></font><hr /><p><br><b>Franco Baudino</b>
+<div align="center"><h1>TSA Software Development 2015-2016</h1><font size="5"><b>Results</b></font><br><hr />
+<div><p>We competed at the TSA Software Development Competition (Feb 24-27, 2016). It was tough because Software Development was set up for the last day, and Hannah had another presentation she had to do right after. We practiced presenting until the last minute. The presentation went well and we gave the judges everything we had. Leaving the presentation we felt as though the judges were not as impressed as we thought they would be. Aparently, they were impressed enough to give us 1st place! It was awesome to run up and recieve the trophy for the school.</p><p>Our team worked really well because despite the fact that we are all socially, ethically, and financially different from eachother, everyone on this team put in 100% effort. From late-night programming in the cafeteria to spending an entire day having "real talk", it was a lot of fun to be on a team with people who were just as dedicated and driven as me. I hope our team can stay in touch and aware of eachothers' projects and achievements. Thanks for a great year!</p><p>Stay Gold,
+Franco Baudino</p></div>
+
+
+<font size="5"><b>The Team</b></font><hr /><p><br><b>Franco Baudino</b>
 <br>Grade : 12
 <br>Intended Major: Computer Eng or Biomedical Eng
 <br>First Experience Programming: Using Arduinos for school and personal projects.
@@ -7,7 +12,7 @@
 
 <br><b>Hannah Waxman</b>
 <br>Grade : 11
-<br>Intended Major: COmputer Science
+<br>Intended Major: Computer Science
 <br>First Experience Programming: AP COmputer Science
 
 
